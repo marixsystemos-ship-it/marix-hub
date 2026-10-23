@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MARIX // HUB</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Базові налаштування */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #0A0B10; /* Твій фірмовий чорний */
+            color: #FFFFFF;
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Головний контейнер */
+        .container {
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Логотип-восьминіг (можеш замінити URL на свою картинку) */
+        .logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 2px solid #8A2BE2;
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+            margin-bottom: 20px;
+            object-fit: cover;
+            background-color: #151720;
+        }
+
+        /* Заголовки */
+        h1 {
+            font-size: 28px;
+            color: #8A2BE2;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
+        }
+        p.subtitle {
+            font-size: 14px;
+            color: #8E93A1;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        /* Картки-посилання */
+        .link-card {
+            display: flex;
+            align-items: center;
+            background-color: #151720;
+            border: 1px solid #2A2C38;
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            text-decoration: none;
+            color: #FFFFFF;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        /* Ефект при наведенні мишки */
+        .link-card:hover {
+            border-color: #8A2BE2;
+            box-shadow: 0 0 15px rgba(138, 43, 226, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Іконки */
+        .icon {
+            font-size: 24px;
+            margin-right: 15px;
+            width: 30px;
+            text-align: center;
+        }
+
+        /* Текст у картці */
+        .link-text {
+            flex-grow: 1;
+        }
+        .link-title {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 3px;
+        }
+        .link-desc {
+            font-size: 12px;
+            color: #8E93A1;
+        }
+
+        /* Головна кнопка (PDF) */
+        .main-btn {
+            background-color: #8A2BE2;
+            border: none;
+            border-radius: 12px;
+            padding: 20px;
+            width: 100%;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 30px;
+            transition: background 0.3s;
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4);
+            display: block;
+            text-decoration: none;
+        }
+        .main-btn:hover {
+            background-color: #6A1B9A;
+        }
+
+        /* Підвал */
+        .footer {
+            margin-top: 40px;
+            font-size: 11px;
+            color: #4A4D59;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Вставь сюда ссылку на свою картинку восминога, если она есть в интернете. Если нет - оставь так -->
+        <img src="https://via.placeholder.com/120/151720/8A2BE2?text=MARIX" alt="MARIX Logo" class="logo">
+        
+        <h1>MARIX SYSTEMS</h1>
+        <p class="subtitle">Симбіоз людини та ШІ. Інструменти для Суверенів.</p>
+
+        <!-- Головна кнопка на покупку -->
+        <a href="ТУТ_БУДЕ_ССЫЛКА_НА_GUMROAD" class="main-btn">
+            📄 Забрати "Код Суверена"
+        </a>
+
+        <!-- Екосистема проектів -->
+        <a href="ТУТ_БУДЕ_ССЫЛКА_НА_ТЕЛЕГРАМ" class="link-card">
+            <div class="icon">✍️</div>
+            <div class="link-text">
+                <div class="link-title">Щоденник Творця</div>
+                <div class="link-desc">Думки, протоколи та шлях до Фортеці</div>
+            </div>
+        </a>
+
+        <a href="#" class="link-card">
+            <div class="icon">🤖</div>
+            <div class="link-text">
+                <div class="link-title">Джафар (Асистент)</div>
+                <div class="link-desc">Статус: В розробці</div>
+            </div>
+        </a>
+
+        <a href="#" class="link-card">
+            <div class="icon">📊</div>
+            <div class="link-text">
+                <div class="link-title">MARIX Planner</div>
+                <div class="link-desc">Статус: В розробці</div>
+            </div>
+        </a>
+
+        <div class="footer">
+            "Ми або вступаємо в симбіоз, або зникаємо."
+        </div>
+    </div>
+
+</body>
+</html>

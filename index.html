@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-    <!-- Supabase JS Client v2 -->
+    <!-- Supabase JS Client v2 (Офіційне посилання) -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
@@ -169,7 +169,7 @@
             <!-- Search Bar -->
             <div class="relative max-w-md mx-auto">
                 <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-purple-400/60"></i>
-                <input type="text" id="searchInput" oninput="renderPosts()" placeholder="Пошук ботів, проєктів чи статей..." class="w-full bg-cardBg/90 border border-purple-900/40 rounded-xl py-2.5 pl-11 pr-4 text-xs md:text-sm text-gray-200 placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-all">
+                <input type="text" id="searchInput" oninput="applyFilters()" placeholder="Пошук ботів, проєктів чи статей..." class="w-full bg-cardBg/90 border border-purple-900/40 rounded-xl py-2.5 pl-11 pr-4 text-xs md:text-sm text-gray-200 placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-all">
             </div>
 
             <!-- Posts / Projects Container -->
@@ -178,7 +178,7 @@
             </div>
         </div>
 
-        <!-- SECTION 2: LEADERBOARD VIEW -->
+        <!-- SECTION 2: LEADERBOARD VIEW (Топовий сучасний дизайн) -->
         <div id="view-leaderboard" class="hidden space-y-8">
             <div class="text-center max-w-lg mx-auto mb-8">
                 <span class="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-mono font-bold uppercase tracking-wider">
@@ -231,6 +231,49 @@
                     <div class="bg-purple-950/60 rounded-xl p-2 border border-purple-900/40 text-xs flex justify-around">
                         <div><span class="block text-gray-400 text-[10px]">Реакцій</span><strong class="text-white">980 🔥</strong></div>
                         <div><span class="block text-gray-400 text-[10px]">Бал</span><strong class="text-amber-400">620</strong></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LEADERBOARD TABLE -->
+            <div class="glass-card rounded-2xl overflow-hidden border border-purple-900/40">
+                <div class="px-5 py-4 border-b border-purple-900/40 font-bold text-sm text-purple-300 flex items-center justify-between">
+                    <span>Загальний рейтинг спільноти</span>
+                    <span class="text-xs font-mono font-normal text-gray-400">Оновлюється щодня</span>
+                </div>
+                <div class="divide-y divide-purple-900/20 text-xs">
+                    <div class="p-4 flex items-center justify-between hover:bg-purple-950/30 transition-colors">
+                        <div class="flex items-center gap-3">
+                            <span class="font-mono font-bold text-gray-500 w-5">#4</span>
+                            <div class="w-8 h-8 rounded-full bg-purple-900/60 flex items-center justify-center font-bold text-purple-300">
+                                ВА
+                            </div>
+                            <div>
+                                <div class="font-bold text-white">Віктор Андрєєв</div>
+                                <div class="text-[10px] text-gray-400">8 публікацій</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="font-mono text-purple-300">410 reaction</span>
+                            <span class="px-2 py-0.5 bg-purple-900/50 border border-purple-700/40 rounded text-[10px] text-purple-200">Суверен</span>
+                        </div>
+                    </div>
+
+                    <div class="p-4 flex items-center justify-between hover:bg-purple-950/30 transition-colors">
+                        <div class="flex items-center gap-3">
+                            <span class="font-mono font-bold text-gray-500 w-5">#5</span>
+                            <div class="w-8 h-8 rounded-full bg-pink-900/60 flex items-center justify-center font-bold text-pink-300">
+                                КМ
+                            </div>
+                            <div>
+                                <div class="font-bold text-white">Катерина М.</div>
+                                <div class="text-[10px] text-gray-400">5 публікацій</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="font-mono text-purple-300">325 reaction</span>
+                            <span class="px-2 py-0.5 bg-gray-800 border border-gray-700 rounded text-[10px] text-gray-300">Учасник</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -319,7 +362,6 @@
         if (window.supabase) {
             try {
                 supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-                console.log("Supabase initialized");
             } catch(e) { console.warn("Supabase local mode"); }
         }
 
@@ -369,10 +411,7 @@
             const container = document.getElementById('posts-container');
             container.innerHTML = '';
 
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = projects.filter(p => p.title.toLowerCase().includes(query) || p.description.toLowerCase().includes(query));
-
-            filtered.forEach(item => {
+            projects.forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'glass-card rounded-2xl p-5 flex flex-col justify-between cursor-pointer group';
                 card.innerHTML = `
@@ -412,7 +451,7 @@
             const tg = document.getElementById('buy-telegram').value;
 
             btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Генеруємо ключ та відправляємо...';
+            btn.innerHTML = 'Генеруємо ключ та відправляємо...';
 
             // Key generation
             const key = `SOV-${Date.now().toString().slice(-4)}-${Math.random().toString(36).substring(2, 6).toUpperCase()}-2026`;
@@ -451,7 +490,6 @@
         // Modals & Controls
         function openBuyModal() { document.getElementById('buy-modal').classList.remove('hidden'); }
         function closeBuyModal() { document.getElementById('buy-modal').classList.add('hidden'); }
-        
         function openAdminModal() { 
             document.getElementById('cfg-telegram-token').value = localStorage.getItem('marix_tg_token') || '';
             document.getElementById('cfg-telegram-chat').value = localStorage.getItem('marix_tg_chat') || '';

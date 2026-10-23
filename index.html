@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MARIX SYSTEMS — Інструменти для Суверенів</title>
-    <!-- Tailwind CSS CDN -->
+    <title>MARIX SYSTEMS — Екосистема Суверенів</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome for Icons -->
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Supabase JS Client v2 -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
         tailwind.config = {
@@ -32,8 +34,8 @@
                         mono: ['JetBrains Mono', 'monospace']
                     },
                     boxShadow: {
-                        'neon': '0 0 20px rgba(176, 38, 255, 0.45), 0 0 40px rgba(139, 92, 246, 0.25)',
-                        'neon-sm': '0 0 10px rgba(176, 38, 255, 0.4)',
+                        'neon': '0 0 25px rgba(176, 38, 255, 0.45)',
+                        'neon-gold': '0 0 25px rgba(245, 158, 11, 0.45)',
                         'card-glow': '0 0 15px rgba(168, 85, 247, 0.15)',
                     }
                 }
@@ -49,7 +51,6 @@
             overflow-x: hidden;
         }
 
-        /* Subtle matrix cyber grid */
         .cyber-grid {
             background-image: 
                 linear-gradient(to right, rgba(168, 85, 247, 0.05) 1px, transparent 1px),
@@ -57,9 +58,8 @@
             background-size: 32px 32px;
         }
 
-        /* Glassmorphism cards */
         .glass-card {
-            background: rgba(18, 15, 36, 0.8);
+            background: rgba(18, 15, 36, 0.85);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(168, 85, 247, 0.2);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -81,48 +81,26 @@
             100% { box-shadow: 0 0 35px #b026ff, inset 0 0 20px #b026ff; }
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #080711;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #2b2148;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #b026ff;
-        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #080711; }
+        ::-webkit-scrollbar-thumb { background: #2b2148; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #b026ff; }
     </style>
 </head>
 <body class="cyber-grid min-h-screen flex flex-col justify-between selection:bg-purple-600 selection:text-white">
 
-    <!-- Glowing Background Lights -->
+    <!-- Background Ambient Light -->
     <div class="fixed top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-purple-900/20 rounded-full blur-[130px] pointer-events-none -z-10"></div>
-    <div class="fixed bottom-10 right-10 w-[350px] h-[350px] bg-pink-900/15 rounded-full blur-[110px] pointer-events-none -z-10"></div>
 
-    <!-- Navigation Header -->
+    <!-- Navigation Bar -->
     <header class="sticky top-0 z-40 backdrop-blur-md bg-darkBg/85 border-b border-purple-900/30">
-        <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
-            <a href="#" class="flex items-center gap-3 group">
-                <!-- Circuit Octopus Logo Icon in Navbar -->
+        <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="#" onclick="switchMainTab('feed')" class="flex items-center gap-3 group">
                 <div class="w-10 h-10 rounded-full border border-purple-500/60 p-1 flex items-center justify-center bg-purple-950/50 group-hover:shadow-neon transition-all">
                     <svg class="w-full h-full text-purple-400" viewBox="0 0 200 200" fill="none">
-                        <!-- Head -->
                         <path d="M100 35 L125 50 L125 80 L100 95 L75 80 L75 50 Z" stroke="#c084fc" stroke-width="3" fill="rgba(168,85,247,0.2)"/>
-                        <!-- Circuit tentacles -->
-                        <path d="M75 55 L45 40 L25 55 M75 70 L40 70 L20 85 M85 90 L55 110 L35 130 M95 95 L80 125 L70 150" stroke="#b026ff" stroke-width="2.5" stroke-linecap="round"/>
-                        <path d="M125 55 L155 40 L175 55 M125 70 L160 70 L180 85 M115 90 L145 110 L165 130 M105 95 L120 125 L130 150" stroke="#b026ff" stroke-width="2.5" stroke-linecap="round"/>
-                        <!-- Nodes -->
-                        <circle cx="25" cy="55" r="3" fill="#e9d5ff"/>
-                        <circle cx="20" cy="85" r="3" fill="#e9d5ff"/>
-                        <circle cx="35" cy="130" r="3" fill="#e9d5ff"/>
-                        <circle cx="175" cy="55" r="3" fill="#e9d5ff"/>
-                        <circle cx="180" cy="85" r="3" fill="#e9d5ff"/>
-                        <circle cx="165" cy="130" r="3" fill="#e9d5ff"/>
-                        <!-- Eyes -->
+                        <path d="M75 55 L45 40 L25 55 M75 70 L40 70 L20 85 M85 90 L55 110 L35 130" stroke="#b026ff" stroke-width="2.5" stroke-linecap="round"/>
+                        <path d="M125 55 L155 40 L175 55 M125 70 L160 70 L180 85 M115 90 L145 110 L165 130" stroke="#b026ff" stroke-width="2.5" stroke-linecap="round"/>
                         <polygon points="88,60 95,65 88,70" fill="#ffffff"/>
                         <polygon points="112,60 105,65 112,70" fill="#ffffff"/>
                     </svg>
@@ -131,287 +109,222 @@
                     <span class="font-extrabold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400 text-lg block leading-none">
                         MARIX SYSTEMS
                     </span>
-                    <span class="text-[10px] font-mono text-purple-400/80">CYBERNETIC ARCHITECTURE</span>
+                    <span class="text-[10px] font-mono text-purple-400/80">SOVEREIGN ECOSYSTEM</span>
                 </div>
             </a>
 
-            <!-- Admin Toggle & Social Icons -->
-            <div class="flex items-center gap-2 md:gap-3">
-                <button onclick="toggleAdminAuth()" class="px-3 py-1.5 rounded-lg bg-purple-950/70 border border-purple-500/40 text-purple-300 hover:text-white hover:border-purple-400 hover:shadow-neon-sm transition-all text-xs font-mono flex items-center gap-1.5">
-                    <i class="fas fa-user-shield text-purple-400"></i>
-                    <span class="hidden sm:inline">Адмін Панель</span>
+            <!-- Central Navigation -->
+            <nav class="hidden md:flex items-center gap-1 bg-cardBg/80 p-1.5 rounded-xl border border-purple-900/40 text-xs font-medium">
+                <button id="nav-feed" onclick="switchMainTab('feed')" class="px-3.5 py-1.5 rounded-lg bg-purple-600 text-white font-semibold transition-all">
+                    <i class="fas fa-stream mr-1.5"></i> Стрічка
                 </button>
-                <a href="https://t.me" target="_blank" class="w-8 h-8 rounded-lg bg-cardBg border border-purple-900/40 flex items-center justify-center text-purple-300 hover:text-white hover:border-purple-500 transition-all text-xs">
-                    <i class="fab fa-telegram-plane"></i>
-                </a>
-                <a href="https://github.com" target="_blank" class="w-8 h-8 rounded-lg bg-cardBg border border-purple-900/40 flex items-center justify-center text-purple-300 hover:text-white hover:border-purple-500 transition-all text-xs">
-                    <i class="fab fa-github"></i>
-                </a>
+                <button id="nav-leaderboard" onclick="switchMainTab('leaderboard')" class="px-3.5 py-1.5 rounded-lg text-gray-400 hover:text-purple-300 transition-all">
+                    <i class="fas fa-trophy mr-1.5 text-amber-400"></i> Дошка Пошани
+                </button>
+                <button id="nav-bookmarks" onclick="switchMainTab('bookmarks')" class="px-3.5 py-1.5 rounded-lg text-gray-400 hover:text-purple-300 transition-all">
+                    <i class="fas fa-bookmark mr-1.5"></i> Закладки
+                </button>
+            </nav>
+
+            <!-- User Status & Actions -->
+            <div class="flex items-center gap-2">
+                <button onclick="openBuyModal()" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-purple-600 text-white font-semibold text-xs shadow-neon-gold hover:opacity-90 transition-all flex items-center gap-1.5">
+                    <i class="fas fa-key"></i>
+                    <span>Код Суверена</span>
+                </button>
+
+                <button onclick="openAdminModal()" class="w-8 h-8 rounded-lg bg-purple-950/70 border border-purple-500/40 text-purple-300 hover:text-white flex items-center justify-center text-xs" title="Адмін Панель">
+                    <i class="fas fa-user-shield"></i>
+                </button>
             </div>
         </div>
     </header>
 
-    <!-- Main Content Container -->
-    <main class="max-w-4xl mx-auto px-4 py-8 flex-grow w-full">
+    <!-- Main Container -->
+    <main class="max-w-5xl mx-auto px-4 py-8 flex-grow w-full">
 
-        <!-- Hero Section -->
-        <section class="text-center py-6 mb-8">
-            <!-- Exact Octopus Circuit Cyber Logo -->
-            <div class="relative w-36 h-36 mx-auto mb-5">
-                <div class="w-full h-full rounded-full border-2 border-purple-500 neon-ring p-3 flex items-center justify-center bg-darkBg">
-                    <svg class="w-full h-full text-purple-400" viewBox="0 0 200 200" fill="none">
-                        <!-- Head Octagon/Cyber Polygon -->
-                        <polygon points="100,25 130,45 130,85 100,100 70,85 70,45" stroke="#d8b4fe" stroke-width="3" fill="rgba(168,85,247,0.15)"/>
-                        
-                        <!-- Circuit Traces / Tentacles (Left Side) -->
-                        <path d="M70 50 L40 35 L20 45" stroke="#b026ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M70 60 L30 60 L15 75" stroke="#b026ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M70 72 L35 90 L20 110" stroke="#b026ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M80 92 L50 120 L35 150 M50 120 L25 135" stroke="#b026ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-
-                        <!-- Circuit Traces / Tentacles (Right Side) -->
-                        <path d="M130 50 L160 35 L180 45" stroke="#b026ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M130 60 L170 60 L185 75" stroke="#b026ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M130 72 L165 90 L180 110" stroke="#b026ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M120 92 L150 120 L165 150 M150 120 L175 135" stroke="#b026ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-
-                        <!-- Circuit Center Core Lines -->
-                        <path d="M100 25 L100 10 M100 100 L100 165" stroke="#e9d5ff" stroke-width="2" stroke-dasharray="3 3"/>
-
-                        <!-- Circuit Nodes (Glowing Dots) -->
-                        <circle cx="20" cy="45" r="4" fill="#ffffff" class="animate-ping" style="animation-duration: 3s;"/>
-                        <circle cx="20" cy="45" r="3.5" fill="#e9d5ff"/>
-                        <circle cx="15" cy="75" r="3.5" fill="#e9d5ff"/>
-                        <circle cx="20" cy="110" r="3.5" fill="#e9d5ff"/>
-                        <circle cx="35" cy="150" r="3.5" fill="#e9d5ff"/>
-                        <circle cx="25" cy="135" r="3.5" fill="#e9d5ff"/>
-
-                        <circle cx="180" cy="45" r="3.5" fill="#e9d5ff"/>
-                        <circle cx="185" cy="75" r="3.5" fill="#e9d5ff"/>
-                        <circle cx="180" cy="110" r="3.5" fill="#e9d5ff"/>
-                        <circle cx="165" cy="150" r="3.5" fill="#e9d5ff"/>
-                        <circle cx="175" cy="135" r="3.5" fill="#e9d5ff"/>
-                        <circle cx="100" cy="165" r="4" fill="#b026ff"/>
-
-                        <!-- Aggressive/Cyber Eyes -->
-                        <polygon points="82,58 92,65 82,72" fill="#ffffff"/>
-                        <polygon points="118,58 108,65 118,72" fill="#ffffff"/>
-                        <path d="M80 54 L94 62 M120 54 L106 62" stroke="#b026ff" stroke-width="2"/>
-                    </svg>
+        <!-- SECTION 1: FEED VIEW -->
+        <div id="view-feed" class="space-y-8">
+            <!-- Hero Banner -->
+            <section class="text-center py-4">
+                <div class="relative w-28 h-28 mx-auto mb-4">
+                    <div class="w-full h-full rounded-full border-2 border-purple-500 neon-ring p-2 flex items-center justify-center bg-darkBg">
+                        <svg class="w-full h-full text-purple-400" viewBox="0 0 200 200" fill="none">
+                            <polygon points="100,25 130,45 130,85 100,100 70,85 70,45" stroke="#d8b4fe" stroke-width="3" fill="rgba(168,85,247,0.15)"/>
+                            <path d="M70 50 L40 35 L20 45" stroke="#b026ff" stroke-width="3"/>
+                            <path d="M130 50 L160 35 L180 45" stroke="#b026ff" stroke-width="3"/>
+                            <polygon points="82,58 92,65 82,72" fill="#ffffff"/>
+                            <polygon points="118,58 108,65 118,72" fill="#ffffff"/>
+                        </svg>
+                    </div>
                 </div>
-                <!-- Badge Badge Pill matching reference -->
-                <div class="absolute -bottom-1.5 left-1/2 -translate-x-1/2 bg-purple-600 text-white text-[11px] font-mono font-bold px-3 py-0.5 rounded-full border border-purple-300 shadow-neon-sm tracking-wider">
-                    MARIX
-                </div>
+                <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-2">
+                    MARIX <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-fuchsia-400 to-pink-500">SYSTEMS</span>
+                </h1>
+                <p class="text-gray-400 text-xs md:text-sm max-w-md mx-auto">
+                    Платформа авторизації та публікації знань Суверенів.
+                </p>
+            </section>
+
+            <!-- Search Bar -->
+            <div class="relative max-w-md mx-auto">
+                <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-purple-400/60"></i>
+                <input type="text" id="searchInput" oninput="renderPosts()" placeholder="Пошук ботів, проєктів чи статей..." class="w-full bg-cardBg/90 border border-purple-900/40 rounded-xl py-2.5 pl-11 pr-4 text-xs md:text-sm text-gray-200 placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-all">
             </div>
 
-            <!-- Header Title -->
-            <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white mb-2">
-                MARIX <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-fuchsia-400 to-pink-500">SYSTEMS</span>
-            </h1>
-            <p class="text-gray-400 text-xs md:text-sm max-w-lg mx-auto font-normal leading-relaxed mb-6">
-                Симбіоз людини та ШІ. Інструменти для Суверенів.
-            </p>
-
-            <!-- Main Sovereign Action Button -->
-            <button onclick="openModal('code-sovereign')" class="inline-flex items-center gap-2.5 px-7 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold text-sm shadow-neon hover:shadow-purple-500/60 hover:scale-[1.02] active:scale-[0.98] transition-all border border-purple-300/30">
-                <i class="fas fa-file-alt text-purple-200"></i>
-                <span>Забрати "Код Суверена"</span>
-            </button>
-        </section>
-
-        <!-- Dynamic Filter Tabs -->
-        <section class="mb-6">
-            <div id="categories-tabs" class="flex items-center justify-start md:justify-center gap-2 overflow-x-auto pb-2 scrollbar-none text-xs md:text-sm font-medium">
-                <!-- Tabs rendered dynamically -->
+            <!-- Posts / Projects Container -->
+            <div id="posts-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Posts dynamically rendered -->
             </div>
-        </section>
-
-        <!-- Search Bar -->
-        <div class="mb-8 relative max-w-md mx-auto">
-            <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-purple-400/60"></i>
-            <input type="text" id="searchInput" oninput="searchProjects()" placeholder="Пошук ботів, планерів, таблиць або статей..." class="w-full bg-cardBg/90 border border-purple-900/40 rounded-xl py-2.5 pl-11 pr-4 text-xs md:text-sm text-gray-200 placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all">
         </div>
 
-        <!-- Cards Grid -->
-        <section id="cards-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <!-- Cards rendered dynamically -->
-        </section>
+        <!-- SECTION 2: LEADERBOARD VIEW -->
+        <div id="view-leaderboard" class="hidden space-y-8">
+            <div class="text-center max-w-lg mx-auto mb-8">
+                <span class="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-mono font-bold uppercase tracking-wider">
+                    🏆 Топ Архітекторів
+                </span>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-white mt-2">Дошка Пошани Суверенів</h2>
+                <p class="text-gray-400 text-xs mt-1">
+                    Найактивніші творці системи, які отримали найбільше реакцій та подяк від спільноти.
+                </p>
+            </div>
 
-        <!-- Footer Quote -->
-        <div class="text-center my-12 pt-6 border-t border-purple-900/20">
-            <p class="italic font-mono text-xs text-purple-300/60">
-                "Ми або вступаємо в симбіоз, або зникаємо."
-            </p>
+            <!-- TOP 3 PODIUM CARDS -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end mb-8">
+                <!-- 2nd Place -->
+                <div class="glass-card rounded-2xl p-5 text-center relative border-slate-400/40 order-2 md:order-1">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-slate-300 text-slate-900 text-xs font-extrabold px-3 py-0.5 rounded-full shadow">
+                        🥈 2 МІСЦЕ
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150" class="w-16 h-16 rounded-full mx-auto mt-2 mb-3 border-2 border-slate-300 p-0.5 object-cover">
+                    <h3 class="font-bold text-white text-sm">Олена "Cyber"</h3>
+                    <p class="text-[11px] text-purple-400 font-mono mb-2">Level 9 Architect</p>
+                    <div class="bg-purple-950/60 rounded-xl p-2 border border-purple-900/40 text-xs flex justify-around">
+                        <div><span class="block text-gray-400 text-[10px]">Реакцій</span><strong class="text-white">1,420 🔥</strong></div>
+                        <div><span class="block text-gray-400 text-[10px]">Бал</span><strong class="text-amber-400">890</strong></div>
+                    </div>
+                </div>
+
+                <!-- 1st Place (GOLD) -->
+                <div class="glass-card rounded-2xl p-6 text-center relative border-amber-500/60 bg-gradient-to-b from-amber-950/20 to-cardBg shadow-neon-gold order-1 md:order-2 md:-translate-y-3">
+                    <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-amber-400 to-amber-600 text-slate-950 text-xs font-black px-4 py-1 rounded-full shadow-lg">
+                        👑 1 МІСЦЕ
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150" class="w-20 h-20 rounded-full mx-auto mt-2 mb-3 border-2 border-amber-400 p-1 object-cover shadow-neon-gold">
+                    <h3 class="font-extrabold text-amber-300 text-base">Олександр MARIX</h3>
+                    <p class="text-xs text-amber-400 font-mono mb-3">Grand Sovereign Creator</p>
+                    <div class="bg-amber-950/40 rounded-xl p-2.5 border border-amber-500/30 text-xs flex justify-around">
+                        <div><span class="block text-amber-200/70 text-[10px]">Реакцій</span><strong class="text-white text-sm">3,890 🔥</strong></div>
+                        <div><span class="block text-amber-200/70 text-[10px]">Репутація</span><strong class="text-amber-400 text-sm">2,450</strong></div>
+                    </div>
+                </div>
+
+                <!-- 3rd Place -->
+                <div class="glass-card rounded-2xl p-5 text-center relative border-amber-700/40 order-3">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-700 text-white text-xs font-bold px-3 py-0.5 rounded-full shadow">
+                        🥉 3 МІСЦЕ
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150" class="w-16 h-16 rounded-full mx-auto mt-2 mb-3 border-2 border-amber-700 p-0.5 object-cover">
+                    <h3 class="font-bold text-white text-sm">Дмитро "Vortex"</h3>
+                    <p class="text-[11px] text-purple-400 font-mono mb-2">Level 7 Developer</p>
+                    <div class="bg-purple-950/60 rounded-xl p-2 border border-purple-900/40 text-xs flex justify-around">
+                        <div><span class="block text-gray-400 text-[10px]">Реакцій</span><strong class="text-white">980 🔥</strong></div>
+                        <div><span class="block text-gray-400 text-[10px]">Бал</span><strong class="text-amber-400">620</strong></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 3: BOOKMARKS VIEW -->
+        <div id="view-bookmarks" class="hidden space-y-6">
+            <h2 class="text-xl font-bold text-white"><i class="fas fa-bookmark text-purple-400 mr-2"></i>Ваші збережені матеріали</h2>
+            <div id="bookmarks-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="col-span-1 md:col-span-2 text-center py-12 text-gray-500">
+                    <p>Закладок поки немає.</p>
+                </div>
+            </div>
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="border-t border-purple-900/30 bg-darkBg/90 py-5 text-center text-xs text-gray-500">
-        <div class="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-            <div>
-                © 2026 <span class="text-purple-400 font-semibold">MARIX SYSTEMS</span>. Всі права захищено.
-            </div>
-            <div class="flex items-center gap-3 text-gray-400">
-                <button onclick="toggleAdminAuth()" class="hover:text-purple-400 transition-colors">Панель керування</button>
-                <span>•</span>
-                <a href="https://t.me" target="_blank" class="hover:text-purple-400 transition-colors">Telegram</a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Public Detail View Modal -->
-    <div id="modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
-        <div class="bg-cardBg border border-purple-500/50 rounded-2xl max-w-2xl w-full p-6 relative shadow-neon overflow-hidden max-h-[90vh] flex flex-col">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white w-8 h-8 rounded-lg bg-purple-950/40 flex items-center justify-center border border-purple-800/40">
+    <!-- BUY / SOVEREIGN KEY MODAL -->
+    <div id="buy-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden">
+        <div class="bg-cardBg border border-amber-500/50 rounded-2xl max-w-md w-full p-6 relative shadow-neon-gold">
+            <button onclick="closeBuyModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white">
                 <i class="fas fa-times"></i>
             </button>
-            <div id="modal-content" class="overflow-y-auto pr-2">
-                <!-- Modal details -->
+            <div class="text-center mb-5">
+                <div class="w-12 h-12 bg-amber-500/20 rounded-full border border-amber-500/40 flex items-center justify-center mx-auto mb-2 text-amber-400 text-xl">
+                    <i class="fas fa-key"></i>
+                </div>
+                <h3 class="text-lg font-bold text-white">Отримати "Код Суверена"</h3>
+                <p class="text-xs text-gray-400 mt-1">Після покупки унікальний ключ активації миттєво відправляється у ваш Telegram-чат.</p>
+            </div>
+
+            <form onsubmit="handleSovereignPurchase(event)" class="space-y-4 text-xs">
+                <div>
+                    <label class="block text-gray-300 mb-1">Ваше ім'я або Nickname</label>
+                    <input type="text" id="buy-name" required placeholder="Alexander" class="w-full bg-darkBg border border-purple-900/60 rounded-xl p-2.5 text-white focus:border-amber-500 outline-none">
+                </div>
+                <div>
+                    <label class="block text-gray-300 mb-1">Telegram Username (для відправки ключа)</label>
+                    <input type="text" id="buy-telegram" required placeholder="@username" class="w-full bg-darkBg border border-purple-900/60 rounded-xl p-2.5 text-white focus:border-amber-500 outline-none">
+                </div>
+                <button type="submit" id="buy-submit-btn" class="w-full py-3 bg-gradient-to-r from-amber-500 to-purple-600 text-white font-bold rounded-xl shadow-neon-gold hover:opacity-95 transition-all">
+                    💳 Оплатити та отримати ключ в Telegram
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ADMIN MODAL -->
+    <div id="admin-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden">
+        <div class="bg-cardBg border border-purple-500/60 rounded-2xl max-w-2xl w-full p-6 relative shadow-neon max-h-[90vh] overflow-y-auto">
+            <button onclick="closeAdminModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+                <i class="fas fa-times"></i>
+            </button>
+            <h3 class="text-lg font-bold text-purple-300 mb-4 flex items-center gap-2">
+                <i class="fas fa-user-shield"></i> Адмін Панель & Налаштування Telegram
+            </h3>
+
+            <div class="space-y-4 text-xs">
+                <div class="bg-purple-950/40 p-4 rounded-xl border border-purple-800/40">
+                    <h4 class="font-bold text-white mb-2">Налаштування Telegram Бота (для автоматичної розсилки ключів)</h4>
+                    <div class="space-y-2">
+                        <div>
+                            <label class="block text-gray-400 mb-1">Bot Token</label>
+                            <input type="text" id="cfg-telegram-token" placeholder="123456789:ABCdefGhIJKlmNoPQ..." class="w-full bg-darkBg border border-purple-900/60 rounded p-2 text-white font-mono">
+                        </div>
+                        <div>
+                            <label class="block text-gray-400 mb-1">Admin Chat ID (для сповіщень про покупки)</label>
+                            <input type="text" id="cfg-telegram-chat" placeholder="987654321" class="w-full bg-darkBg border border-purple-900/60 rounded p-2 text-white font-mono">
+                        </div>
+                        <button onclick="saveTelegramSettings()" class="px-3 py-1.5 bg-purple-600 text-white font-bold rounded hover:bg-purple-500">Зберегти конфігурацію</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Admin Panel Drawer/Modal -->
-    <div id="admin-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
-        <div class="bg-cardBg border border-purple-500/60 rounded-2xl max-w-3xl w-full p-6 relative shadow-neon max-h-[92vh] flex flex-col overflow-hidden">
-            <!-- Header -->
-            <div class="flex items-center justify-between pb-4 mb-4 border-b border-purple-900/40">
-                <div class="flex items-center gap-2 text-purple-300 font-bold text-lg">
-                    <i class="fas fa-user-gear text-purple-400"></i>
-                    <span>Адмін Панель Керування MARIX</span>
-                </div>
-                <button onclick="closeAdminModal()" class="text-gray-400 hover:text-white w-8 h-8 rounded-lg bg-purple-950/40 flex items-center justify-center border border-purple-800/40">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
+    <!-- TOAST CONTAINER -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-            <!-- Admin Nav Tabs -->
-            <div class="flex border-b border-purple-900/40 mb-4 text-xs font-semibold gap-2">
-                <button id="admin-tab-items" onclick="switchAdminSubTab('items')" class="px-4 py-2 border-b-2 border-purple-500 text-purple-300">
-                    <i class="fas fa-layer-group"></i> Проєкти та Записи
-                </button>
-                <button id="admin-tab-categories" onclick="switchAdminSubTab('categories')" class="px-4 py-2 text-gray-400 hover:text-purple-300">
-                    <i class="fas fa-tags"></i> Категорії
-                </button>
-            </div>
-
-            <!-- Content Area -->
-            <div class="overflow-y-auto pr-1 flex-grow">
-                <!-- Section 1: Manage Projects/Articles -->
-                <div id="admin-section-items" class="space-y-6">
-                    <div class="flex items-center justify-between bg-purple-950/30 p-3 rounded-xl border border-purple-900/40">
-                        <span class="text-xs text-purple-300 font-medium">Створити новий ресурс або статтю</span>
-                        <button onclick="showCreateItemForm()" class="px-3 py-1.5 bg-purple-600 hover:bg-purple-500 text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all">
-                            <i class="fas fa-plus"></i> Додати
-                        </button>
-                    </div>
-
-                    <!-- Add/Edit Form (Hidden by default) -->
-                    <form id="item-form" onsubmit="saveItem(event)" class="hidden bg-darkBg/90 p-4 rounded-xl border border-purple-500/40 space-y-3">
-                        <input type="hidden" id="form-item-id">
-                        <h4 id="form-title" class="text-sm font-bold text-purple-300 mb-2">Новий ресурс</h4>
-                        
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                            <div>
-                                <label class="block text-gray-400 mb-1">Назва</label>
-                                <input type="text" id="form-title-input" required class="w-full bg-cardBg border border-purple-900/50 rounded-lg p-2 text-white focus:border-purple-500 outline-none">
-                            </div>
-                            <div>
-                                <label class="block text-gray-400 mb-1">Категорія</label>
-                                <select id="form-category-select" required class="w-full bg-cardBg border border-purple-900/50 rounded-lg p-2 text-white focus:border-purple-500 outline-none">
-                                    <!-- Dynamic options -->
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-gray-400 mb-1">Статус (напр. В розробці, Готово)</label>
-                                <input type="text" id="form-status-input" placeholder="В розробці" required class="w-full bg-cardBg border border-purple-900/50 rounded-lg p-2 text-white focus:border-purple-500 outline-none">
-                            </div>
-                            <div>
-                                <label class="block text-gray-400 mb-1">Плашка (Badge)</label>
-                                <input type="text" id="form-badge-input" placeholder="TG Бот / Блог / Таблиця" required class="w-full bg-cardBg border border-purple-900/50 rounded-lg p-2 text-white focus:border-purple-500 outline-none">
-                            </div>
-                            <div>
-                                <label class="block text-gray-400 mb-1">Іконка FontAwesome (напр. fa-robot, fa-table)</label>
-                                <input type="text" id="form-icon-input" placeholder="fa-robot" required class="w-full bg-cardBg border border-purple-900/50 rounded-lg p-2 text-white focus:border-purple-500 outline-none">
-                            </div>
-                        </div>
-
-                        <div>
-                            <label class="block text-gray-400 mb-1 text-xs">Короткий опис</label>
-                            <textarea id="form-desc-input" rows="2" required class="w-full bg-cardBg border border-purple-900/50 rounded-lg p-2 text-xs text-white focus:border-purple-500 outline-none"></textarea>
-                        </div>
-
-                        <div>
-                            <label class="block text-gray-400 mb-1 text-xs">Повний вміст (HTML підтримка)</label>
-                            <textarea id="form-full-input" rows="4" required class="w-full bg-cardBg border border-purple-900/50 rounded-lg p-2 text-xs text-white font-mono focus:border-purple-500 outline-none"></textarea>
-                        </div>
-
-                        <div class="flex justify-end gap-2 pt-2">
-                            <button type="button" onclick="hideItemForm()" class="px-3 py-1.5 bg-gray-800 text-gray-300 rounded-lg text-xs">Скасувати</button>
-                            <button type="submit" class="px-4 py-1.5 bg-purple-600 hover:bg-purple-500 text-white rounded-lg text-xs font-semibold">Зберегти</button>
-                        </div>
-                    </form>
-
-                    <!-- Items List Table -->
-                    <div id="admin-items-list" class="space-y-2">
-                        <!-- Rendered dynamically -->
-                    </div>
-                </div>
-
-                <!-- Section 2: Manage Categories -->
-                <div id="admin-section-categories" class="hidden space-y-4">
-                    <!-- Create Category Form -->
-                    <form onsubmit="addCategory(event)" class="bg-darkBg/90 p-4 rounded-xl border border-purple-500/40 space-y-3">
-                        <h4 class="text-sm font-bold text-purple-300">Додати нову категорію</h4>
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-                            <div>
-                                <label class="block text-gray-400 mb-1">ID (англійською)</label>
-                                <input type="text" id="cat-id-input" placeholder="my-custom-cat" required class="w-full bg-cardBg border border-purple-900/50 rounded-lg p-2 text-white focus:border-purple-500 outline-none">
-                            </div>
-                            <div>
-                                <label class="block text-gray-400 mb-1">Назва категорії</label>
-                                <input type="text" id="cat-name-input" placeholder="ШІ Агенти" required class="w-full bg-cardBg border border-purple-900/50 rounded-lg p-2 text-white focus:border-purple-500 outline-none">
-                            </div>
-                            <div>
-                                <label class="block text-gray-400 mb-1">Іконка FontAwesome</label>
-                                <input type="text" id="cat-icon-input" placeholder="fa-brain" required class="w-full bg-cardBg border border-purple-900/50 rounded-lg p-2 text-white focus:border-purple-500 outline-none">
-                            </div>
-                        </div>
-                        <div class="flex justify-end">
-                            <button type="submit" class="px-4 py-1.5 bg-purple-600 hover:bg-purple-500 text-white rounded-lg text-xs font-semibold">Додати категорію</button>
-                        </div>
-                    </form>
-
-                    <div id="admin-categories-list" class="space-y-2 pt-2">
-                        <!-- Rendered dynamically -->
-                    </div>
-                </div>
-            </div>
-
-            <!-- Admin Footer Actions -->
-            <div class="pt-3 mt-3 border-t border-purple-900/40 flex justify-between items-center text-xs text-gray-400">
-                <button onclick="resetDefaultData()" class="text-rose-400 hover:text-rose-300 flex items-center gap-1">
-                    <i class="fas fa-undo"></i> Скинути до початкових даних
-                </button>
-                <span>Автозбереження в локальній системі</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Script Logic -->
+    <!-- JAVASCRIPT CODE -->
     <script>
-        // Initial Default Categories
-        const defaultCategories = [
-            { id: 'all', name: 'Усі проєкти', icon: 'fa-th-large' },
-            { id: 'tg-bots', name: 'TG Боти & ШІ', icon: 'fa-robot' },
-            { id: 'planners', name: 'Планери & Notion', icon: 'fa-calendar-check' },
-            { id: 'google-apps', name: 'Google Додатки', icon: 'fa-table' },
-            { id: 'blog', name: 'Блог / Статті', icon: 'fa-book-open' }
-        ];
+        // Supabase Init
+        const SUPABASE_URL = "https://ozvzqtvnxlvsntfpboya.supabase.co";
+        const SUPABASE_KEY = "sb_publishable_T_IxCJRrg9TP6Mmxkipwng_hakLieG7";
+        let supabaseClient = null;
 
-        // Initial Default Data
-        const defaultProjects = [
+        if (window.supabase) {
+            try {
+                supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+                console.log("Supabase initialized");
+            } catch(e) { console.warn("Supabase local mode"); }
+        }
+
+        // Demo Data
+        const projects = [
             {
                 id: 'code-sovereign',
                 title: 'Забрати "Код Суверена"',
@@ -421,42 +334,7 @@
                 statusColor: 'text-emerald-400 border-emerald-500/30 bg-emerald-950/30',
                 badge: 'Головний ресурс',
                 badgeColor: 'bg-purple-600 text-white',
-                description: 'Базовий фреймворк та система протоколів для організації цифрового життя, ШІ-асистентів та особистої ефективності.',
-                fullText: `
-                    <h3 class="text-xl font-bold text-purple-300 mb-3 flex items-center gap-2">
-                        <i class="fas fa-shield-alt text-purple-400"></i> Код Суверена (v1.0)
-                    </h3>
-                    <p class="text-gray-300 text-sm leading-relaxed mb-4">
-                        Це зібрання правил, автоматизацій та шаблонів для створення власної незалежної цифрової екосистеми.
-                    </p>
-                    <div class="bg-purple-950/40 border border-purple-800/50 rounded-xl p-4 mb-4 font-mono text-xs text-purple-200">
-                        <p class="text-purple-400 mb-1">// Складові Коду Суверена:</p>
-                        <p>1. Автономна система збереження знань (Obsidian + Notion)</p>
-                        <p>2. Автоматичні сценарії для Telegram & OpenAI API</p>
-                        <p>3. Фінансовий контролер у Google Таблицях</p>
-                        <p>4. Протоколи фокусу та мінімізації інформаційного шуму</p>
-                    </div>
-                    <a href="https://t.me" target="_blank" class="inline-flex items-center gap-2 w-full justify-center px-4 py-2.5 rounded-xl bg-purple-600 text-white font-medium hover:bg-purple-500 transition-all">
-                        <i class="fab fa-telegram-plane"></i> Отримати доступ в Telegram
-                    </a>
-                `
-            },
-            {
-                id: 'creator-journal',
-                title: 'Щоденник Творця',
-                category: 'blog',
-                icon: 'fa-book',
-                status: 'Регулярні записи',
-                statusColor: 'text-purple-300 border-purple-500/30 bg-purple-950/30',
-                badge: 'Блог',
-                badgeColor: 'bg-indigo-900/60 text-indigo-300 border border-indigo-700/50',
-                description: 'Думки, протоколи та шлях до створення власної цифрової Фортеці. Записи про розробку та ШІ.',
-                fullText: `
-                    <h3 class="text-xl font-bold text-purple-300 mb-3">Щоденник Творця: Філософія Симбіозу</h3>
-                    <p class="text-gray-300 text-sm leading-relaxed mb-3">
-                        Ласкаво просимо до мого щоденника. Тут я публікую аналітику використання штучного інтелекту, архітектуру ботів та нотатки щодо побудови власного цифрового бренду.
-                    </p>
-                `
+                description: 'Базовий фреймворк та система протоколів для організації цифрового життя та ШІ-асистентів.'
             },
             {
                 id: 'jafar-assistant',
@@ -467,410 +345,138 @@
                 statusColor: 'text-amber-400 border-amber-500/30 bg-amber-950/30',
                 badge: 'TG Бот',
                 badgeColor: 'bg-purple-900/60 text-purple-300 border border-purple-700/50',
-                description: 'Персональний Telegram-асистент на базі LLM. Керує розкладом, підсумовує повідомлення та веде трекінг завдань.',
-                fullText: `
-                    <h3 class="text-xl font-bold text-purple-300 mb-2">ШІ-Асистент "Джафар"</h3>
-                    <p class="text-gray-300 text-sm mb-4">Персональний секретар 24/7 для Telegram.</p>
-                `
-            },
-            {
-                id: 'marix-planner',
-                title: 'MARIX Planner',
-                category: 'planners',
-                icon: 'fa-tasks',
-                status: 'В розробці',
-                statusColor: 'text-amber-400 border-amber-500/30 bg-amber-950/30',
-                badge: 'Планер',
-                badgeColor: 'bg-pink-900/60 text-pink-300 border border-pink-700/50',
-                description: 'Мінімалістична система планування тижня та контролю звичок, інтегрована з Google Таблицями.',
-                fullText: `<h3 class="text-xl font-bold text-purple-300 mb-2">MARIX Planner (Notion + Sheets)</h3>`
-            },
-            {
-                id: 'sheet-automation',
-                title: 'Google Sheets Automation',
-                category: 'google-apps',
-                icon: 'fa-file-excel',
-                status: 'Готово',
-                statusColor: 'text-emerald-400 border-emerald-500/30 bg-emerald-950/30',
-                badge: 'Google Sheets',
-                badgeColor: 'bg-emerald-900/60 text-emerald-300 border border-emerald-700/50',
-                description: 'Шаблони та скрипти Apps Script для обліку фінансів, аналізу даних та підключення Telegram Webhooks.',
-                fullText: `<h3 class="text-xl font-bold text-purple-300 mb-2">Google Sheets Automation Suite</h3>`
+                description: 'Персональний Telegram-асистент на базі LLM. Керує розкладом та веде трекінг завдань.'
             }
         ];
 
-        // Load or initialize state from localStorage
-        let categories = JSON.parse(localStorage.getItem('marix_categories')) || defaultCategories;
-        let projects = JSON.parse(localStorage.getItem('marix_projects')) || defaultProjects;
-        let currentCategory = 'all';
+        // Tabs Logic
+        function switchMainTab(tab) {
+            document.getElementById('view-feed').classList.add('hidden');
+            document.getElementById('view-leaderboard').classList.add('hidden');
+            document.getElementById('view-bookmarks').classList.add('hidden');
 
-        function saveData() {
-            localStorage.setItem('marix_categories', JSON.stringify(categories));
-            localStorage.setItem('marix_projects', JSON.stringify(projects));
+            document.getElementById(`view-${tab}`).classList.remove('hidden');
+
+            document.getElementById('nav-feed').className = "px-3.5 py-1.5 rounded-lg text-gray-400 hover:text-purple-300 transition-all";
+            document.getElementById('nav-leaderboard').className = "px-3.5 py-1.5 rounded-lg text-gray-400 hover:text-purple-300 transition-all";
+            document.getElementById('nav-bookmarks').className = "px-3.5 py-1.5 rounded-lg text-gray-400 hover:text-purple-300 transition-all";
+
+            document.getElementById(`nav-${tab}`).className = "px-3.5 py-1.5 rounded-lg bg-purple-600 text-white font-semibold transition-all";
         }
 
-        function resetDefaultData() {
-            if (confirm('Ви впевнені, що хочете скинути всі дані до початкових?')) {
-                localStorage.removeItem('marix_categories');
-                localStorage.removeItem('marix_projects');
-                categories = [...defaultCategories];
-                projects = [...defaultProjects];
-                renderTabs();
-                applyFilters();
-                renderAdminItems();
-                renderAdminCategories();
-                alert('Дані скинуто!');
-            }
-        }
-
-        // Render Tabs
-        function renderTabs() {
-            const container = document.getElementById('categories-tabs');
+        // Render Posts
+        function renderPosts() {
+            const container = document.getElementById('posts-container');
             container.innerHTML = '';
 
-            categories.forEach(cat => {
-                const btn = document.createElement('button');
-                btn.id = `tab-${cat.id}`;
-                btn.onclick = () => filterCategory(cat.id);
-                
-                const isActive = (cat.id === currentCategory);
-                btn.className = `filter-btn px-4 py-2 rounded-xl text-xs md:text-sm font-medium transition-all flex items-center gap-2 whitespace-nowrap ${
-                    isActive 
-                    ? 'bg-purple-600/30 border border-purple-500 text-purple-200' 
-                    : 'bg-cardBg border border-purple-900/40 text-gray-400 hover:text-purple-200 hover:border-purple-500/50'
-                }`;
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = projects.filter(p => p.title.toLowerCase().includes(query) || p.description.toLowerCase().includes(query));
 
-                btn.innerHTML = `<i class="fas ${cat.icon}"></i> ${cat.name}`;
-                container.appendChild(btn);
-            });
-        }
-
-        // Render Public Cards
-        function renderProjects(items) {
-            const container = document.getElementById('cards-container');
-            container.innerHTML = '';
-
-            if (items.length === 0) {
-                container.innerHTML = `
-                    <div class="col-span-1 md:col-span-2 text-center py-12 text-gray-500">
-                        <i class="fas fa-ghost text-3xl mb-3 text-purple-400/50"></i>
-                        <p>У цій категорії поки немає записів.</p>
-                    </div>
-                `;
-                return;
-            }
-
-            items.forEach(item => {
+            filtered.forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'glass-card rounded-2xl p-5 flex flex-col justify-between cursor-pointer group';
-                card.onclick = () => openModal(item.id);
-
                 card.innerHTML = `
                     <div>
                         <div class="flex items-center justify-between mb-3">
-                            <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-md ${item.badgeColor || 'bg-purple-900/60 text-purple-300'}">
+                            <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-md ${item.badgeColor}">
                                 ${item.badge}
                             </span>
-                            <span class="text-[10px] font-mono px-2 py-0.5 rounded-full border ${item.statusColor || 'text-gray-300 border-gray-700 bg-gray-900'}">
+                            <span class="text-[10px] font-mono px-2 py-0.5 rounded-full border ${item.statusColor}">
                                 ${item.status}
                             </span>
                         </div>
                         <div class="flex items-start gap-3.5 mb-3">
-                            <div class="w-10 h-10 rounded-xl bg-purple-950/60 border border-purple-800/40 flex items-center justify-center text-purple-400 group-hover:text-purple-300 group-hover:border-purple-500/60 transition-all shrink-0">
-                                <i class="fas ${item.icon || 'fa-code'} text-lg"></i>
+                            <div class="w-10 h-10 rounded-xl bg-purple-950/60 border border-purple-800/40 flex items-center justify-center text-purple-400 shrink-0">
+                                <i class="fas ${item.icon} text-lg"></i>
                             </div>
                             <div>
                                 <h2 class="font-bold text-white text-base group-hover:text-purple-300 transition-colors">
                                     ${item.title}
                                 </h2>
-                                <p class="text-xs text-gray-400 mt-1 line-clamp-2 leading-relaxed">
+                                <p class="text-xs text-gray-400 mt-1 leading-relaxed">
                                     ${item.description}
                                 </p>
                             </div>
                         </div>
-                    </div>
-                    <div class="pt-3 border-t border-purple-900/20 flex items-center justify-between text-xs text-purple-400 font-medium group-hover:text-purple-300">
-                        <span>Відкрити / Детальніше</span>
-                        <i class="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform"></i>
                     </div>
                 `;
                 container.appendChild(card);
             });
         }
 
-        // Filtering & Search
-        function filterCategory(catId) {
-            currentCategory = catId;
-            renderTabs();
-            applyFilters();
-        }
+        // Purchase Sovereign Key & Send to Telegram API
+        async function handleSovereignPurchase(event) {
+            event.preventDefault();
+            const btn = document.getElementById('buy-submit-btn');
+            const name = document.getElementById('buy-name').value;
+            const tg = document.getElementById('buy-telegram').value;
 
-        function searchProjects() {
-            applyFilters();
-        }
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Генеруємо ключ та відправляємо...';
 
-        function applyFilters() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = projects.filter(item => {
-                const matchesCategory = (currentCategory === 'all') || (item.category === currentCategory);
-                const matchesSearch = item.title.toLowerCase().includes(query) || 
-                                      item.description.toLowerCase().includes(query);
-                return matchesCategory && matchesSearch;
-            });
-            renderProjects(filtered);
-        }
+            // Key generation
+            const key = `SOV-${Date.now().toString().slice(-4)}-${Math.random().toString(36).substring(2, 6).toUpperCase()}-2026`;
 
-        // Modal Controls
-        function openModal(id) {
-            const project = projects.find(p => p.id === id);
-            if (!project) return;
+            // Telegram API Integration
+            const botToken = localStorage.getItem('marix_tg_token');
+            const adminChatId = localStorage.getItem('marix_tg_chat');
 
-            const modal = document.getElementById('modal');
-            const content = document.getElementById('modal-content');
-
-            content.innerHTML = `
-                <div class="mb-4 flex items-center gap-2">
-                    <span class="text-xs font-mono px-2 py-0.5 rounded ${project.badgeColor || 'bg-purple-900 text-purple-200'}">
-                        ${project.badge}
-                    </span>
-                    <span class="text-xs font-mono text-purple-400">Status: ${project.status}</span>
-                </div>
-                ${project.fullText}
-            `;
-
-            modal.classList.remove('hidden');
-            setTimeout(() => modal.classList.remove('opacity-0'), 10);
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('modal');
-            modal.classList.add('opacity-0');
-            setTimeout(() => modal.classList.add('hidden'), 300);
-        }
-
-        // Admin Auth & Modal
-        function toggleAdminAuth() {
-            const pin = prompt('Введіть PIN код для доступу в Адмін Панель (За замовчуванням: 1234):');
-            if (pin === '1234' || pin === 'admin') {
-                openAdminModal();
-            } else if (pin !== null) {
-                alert('Невірний код доступу!');
-            }
-        }
-
-        function openAdminModal() {
-            renderAdminItems();
-            renderAdminCategories();
-            populateCategorySelect();
-            const modal = document.getElementById('admin-modal');
-            modal.classList.remove('hidden');
-            setTimeout(() => modal.classList.remove('opacity-0'), 10);
-        }
-
-        function closeAdminModal() {
-            const modal = document.getElementById('admin-modal');
-            modal.classList.add('opacity-0');
-            setTimeout(() => modal.classList.add('hidden'), 300);
-        }
-
-        function switchAdminSubTab(tab) {
-            const itemsSec = document.getElementById('admin-section-items');
-            const catSec = document.getElementById('admin-section-categories');
-            const itemsBtn = document.getElementById('admin-tab-items');
-            const catBtn = document.getElementById('admin-tab-categories');
-
-            if (tab === 'items') {
-                itemsSec.classList.remove('hidden');
-                catSec.classList.add('hidden');
-                itemsBtn.className = 'px-4 py-2 border-b-2 border-purple-500 text-purple-300 font-bold';
-                catBtn.className = 'px-4 py-2 text-gray-400 hover:text-purple-300 font-medium';
-            } else {
-                itemsSec.classList.add('hidden');
-                catSec.classList.remove('hidden');
-                catBtn.className = 'px-4 py-2 border-b-2 border-purple-500 text-purple-300 font-bold';
-                itemsBtn.className = 'px-4 py-2 text-gray-400 hover:text-purple-300 font-medium';
-            }
-        }
-
-        // Render Admin List Items
-        function renderAdminItems() {
-            const list = document.getElementById('admin-items-list');
-            list.innerHTML = '';
-
-            projects.forEach(item => {
-                const row = document.createElement('div');
-                row.className = 'bg-cardBg border border-purple-900/40 rounded-xl p-3 flex items-center justify-between gap-3 text-xs';
-                row.innerHTML = `
-                    <div class="flex items-center gap-3 overflow-hidden">
-                        <div class="w-8 h-8 rounded-lg bg-purple-950 flex items-center justify-center text-purple-400 shrink-0">
-                            <i class="fas ${item.icon}"></i>
-                        </div>
-                        <div class="truncate">
-                            <div class="font-bold text-white truncate">${item.title}</div>
-                            <div class="text-gray-400 text-[10px]">Категорія: ${item.category} | ${item.status}</div>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-2 shrink-0">
-                        <button onclick="editItem('${item.id}')" class="px-2 py-1 bg-purple-900/60 hover:bg-purple-800 text-purple-200 rounded">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button onclick="deleteItem('${item.id}')" class="px-2 py-1 bg-rose-950/60 hover:bg-rose-900 text-rose-300 rounded border border-rose-800/40">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                `;
-                list.appendChild(row);
-            });
-        }
-
-        // Render Admin Categories List
-        function renderAdminCategories() {
-            const list = document.getElementById('admin-categories-list');
-            list.innerHTML = '';
-
-            categories.forEach(cat => {
-                if (cat.id === 'all') return; // Cannot delete 'all'
-                const row = document.createElement('div');
-                row.className = 'bg-cardBg border border-purple-900/40 rounded-xl p-3 flex items-center justify-between text-xs';
-                row.innerHTML = `
-                    <div class="flex items-center gap-2">
-                        <i class="fas ${cat.icon} text-purple-400"></i>
-                        <span class="font-bold text-white">${cat.name}</span>
-                        <span class="text-gray-500 font-mono text-[10px]">(${cat.id})</span>
-                    </div>
-                    <button onclick="deleteCategory('${cat.id}')" class="px-2 py-1 bg-rose-950/60 hover:bg-rose-900 text-rose-300 rounded border border-rose-800/40">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                `;
-                list.appendChild(row);
-            });
-        }
-
-        function populateCategorySelect() {
-            const select = document.getElementById('form-category-select');
-            select.innerHTML = '';
-            categories.filter(c => c.id !== 'all').forEach(cat => {
-                const opt = document.createElement('option');
-                opt.value = cat.id;
-                opt.textContent = cat.name;
-                select.appendChild(opt);
-            });
-        }
-
-        function showCreateItemForm() {
-            document.getElementById('item-form').classList.remove('hidden');
-            document.getElementById('form-item-id').value = '';
-            document.getElementById('form-title').textContent = 'Створити новий ресурс/запис';
-            document.getElementById('form-title-input').value = '';
-            document.getElementById('form-status-input').value = 'В розробці';
-            document.getElementById('form-badge-input').value = 'TG Бот';
-            document.getElementById('form-icon-input').value = 'fa-robot';
-            document.getElementById('form-desc-input').value = '';
-            document.getElementById('form-full-input').value = '';
-        }
-
-        function hideItemForm() {
-            document.getElementById('item-form').classList.add('hidden');
-        }
-
-        function saveItem(e) {
-            e.preventDefault();
-            const id = document.getElementById('form-item-id').value || 'item-' + Date.now();
-            const title = document.getElementById('form-title-input').value;
-            const category = document.getElementById('form-category-select').value;
-            const status = document.getElementById('form-status-input').value;
-            const badge = document.getElementById('form-badge-input').value;
-            const icon = document.getElementById('form-icon-input').value;
-            const description = document.getElementById('form-desc-input').value;
-            const fullText = document.getElementById('form-full-input').value;
-
-            const existingIndex = projects.findIndex(p => p.id === id);
-            const newItem = {
-                id,
-                title,
-                category,
-                icon,
-                status,
-                statusColor: 'text-purple-300 border-purple-500/30 bg-purple-950/30',
-                badge,
-                badgeColor: 'bg-purple-900/60 text-purple-300 border border-purple-700/50',
-                description,
-                fullText
-            };
-
-            if (existingIndex >= 0) {
-                projects[existingIndex] = newItem;
-            } else {
-                projects.unshift(newItem);
+            if (botToken) {
+                const messageText = `🔑 <b>НОВИЙ КЛЮЧ СУВЕРЕНА</b>\n\n<b>Користувач:</b> ${name}\n<b>Telegram:</b> ${tg}\n<b>Унікальний Ключ:</b> <code>${key}</code>\n\n<i>Дякуємо за підтримку MARIX SYSTEMS!</i>`;
+                
+                try {
+                    const targetChat = adminChatId || (tg.startsWith('@') ? tg : '@' + tg);
+                    await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            chat_id: targetChat,
+                            text: messageText,
+                            parse_mode: 'HTML'
+                        })
+                    });
+                } catch(err) {
+                    console.error("Помилка відправки в Telegram:", err);
+                }
             }
 
-            saveData();
-            renderAdminItems();
-            applyFilters();
-            hideItemForm();
+            setTimeout(() => {
+                btn.disabled = false;
+                btn.innerHTML = '💳 Оплатити та отримати ключ в Telegram';
+                closeBuyModal();
+                showToast(`Вітаємо! Ваш ключ [${key}] успішно відправлено у Telegram: ${tg}`);
+            }, 1000);
         }
 
-        function editItem(id) {
-            const item = projects.find(p => p.id === id);
-            if (!item) return;
+        // Modals & Controls
+        function openBuyModal() { document.getElementById('buy-modal').classList.remove('hidden'); }
+        function closeBuyModal() { document.getElementById('buy-modal').classList.add('hidden'); }
+        
+        function openAdminModal() { 
+            document.getElementById('cfg-telegram-token').value = localStorage.getItem('marix_tg_token') || '';
+            document.getElementById('cfg-telegram-chat').value = localStorage.getItem('marix_tg_chat') || '';
+            document.getElementById('admin-modal').classList.remove('hidden'); 
+        }
+        function closeAdminModal() { document.getElementById('admin-modal').classList.add('hidden'); }
 
-            showCreateItemForm();
-            document.getElementById('form-item-id').value = item.id;
-            document.getElementById('form-title').textContent = 'Редагувати запис';
-            document.getElementById('form-title-input').value = item.title;
-            document.getElementById('form-category-select').value = item.category;
-            document.getElementById('form-status-input').value = item.status;
-            document.getElementById('form-badge-input').value = item.badge;
-            document.getElementById('form-icon-input').value = item.icon || 'fa-code';
-            document.getElementById('form-desc-input').value = item.description;
-            document.getElementById('form-full-input').value = item.fullText;
+        function saveTelegramSettings() {
+            localStorage.setItem('marix_tg_token', document.getElementById('cfg-telegram-token').value);
+            localStorage.setItem('marix_tg_chat', document.getElementById('cfg-telegram-chat').value);
+            showToast('Налаштування Telegram збережено!');
+            closeAdminModal();
         }
 
-        function deleteItem(id) {
-            if (confirm('Вилучити цей запис?')) {
-                projects = projects.filter(p => p.id !== id);
-                saveData();
-                renderAdminItems();
-                applyFilters();
-            }
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'bg-gray-900 border border-emerald-500 text-white px-4 py-3 rounded-xl shadow-xl flex items-center gap-3 transition-all pointer-events-auto max-w-md text-xs';
+            toast.innerHTML = `<i class="fas fa-check-circle text-emerald-400 text-base"></i><div>${message}</div>`;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 5000);
         }
 
-        function addCategory(e) {
-            e.preventDefault();
-            const id = document.getElementById('cat-id-input').value.toLowerCase().trim();
-            const name = document.getElementById('cat-name-input').value.trim();
-            const icon = document.getElementById('cat-icon-input').value.trim();
-
-            if (categories.some(c => c.id === id)) {
-                alert('Категорія з таким ID вже існує!');
-                return;
-            }
-
-            categories.push({ id, name, icon });
-            saveData();
-            renderTabs();
-            renderAdminCategories();
-            populateCategorySelect();
-
-            document.getElementById('cat-id-input').value = '';
-            document.getElementById('cat-name-input').value = '';
-            document.getElementById('cat-icon-input').value = '';
-        }
-
-        function deleteCategory(id) {
-            if (confirm(`Видалити категорію "${id}"?`)) {
-                categories = categories.filter(c => c.id !== id);
-                saveData();
-                renderTabs();
-                renderAdminCategories();
-                populateCategorySelect();
-            }
-        }
-
-        // Initialize App
         window.onload = function() {
-            renderTabs();
-            applyFilters();
+            renderPosts();
         };
     </script>
 </body>

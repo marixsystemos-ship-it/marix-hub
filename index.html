@@ -1,1015 +1,1627 @@
 <!DOCTYPE html>
 <html lang="uk" class="dark">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>MARIX SYSTEMS — Sovereign Ecosystem</title>
-
-  <!-- PWA & Mobile Theme Metadata -->
-  <meta name="theme-color" content="#0A0B10">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-  <!-- Tailwind CSS via CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              DEFAULT: '#8A2BE2',
-              hover: '#9d4edd',
-              glow: '#a855f7',
-              dark: '#0A0B10',
-              card: 'rgba(18, 19, 26, 0.75)',
-              border: 'rgba(138, 43, 226, 0.25)',
-              input: '#12131A'
-            }
-          },
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            mono: ['JetBrains Mono', 'monospace']
-          }
-        }
-      }
-    }
-  </script>
-
-  <!-- Google Fonts & FontAwesome -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  <!-- Custom Styles: Cyberpunk Grid, Glassmorphism, Neon Glows & Animations -->
-  <style>
-    body {
-      background-color: #0A0B10;
-      color: #E2E8F0;
-      font-family: 'Inter', sans-serif;
-      background-image: 
-        linear-gradient(to right, rgba(138, 43, 226, 0.05) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(138, 43, 226, 0.05) 1px, transparent 1px);
-      background-size: 32px 32px;
-      background-attachment: fixed;
-      overflow-x: hidden;
-    }
-
-    /* Glassmorphism Effect */
-    .glass-panel {
-      background: rgba(18, 19, 26, 0.75);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(138, 43, 226, 0.25);
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MARIX SYSTEMS — Sovereign Ecosystem</title>
     
-    .glass-panel:hover {
-      border-color: rgba(138, 43, 226, 0.5);
-      box-shadow: 0 0 25px rgba(138, 43, 226, 0.2);
-    }
+    <!-- PWA Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0A0B10">
+    <link rel="manifest" href="manifest.json">
 
-    .glass-modal {
-      background: rgba(12, 13, 19, 0.92);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(138, 43, 226, 0.4);
-    }
+    <!-- Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
-    /* Glow Effects */
-    .neon-glow {
-      box-shadow: 0 0 15px rgba(138, 43, 226, 0.4);
-    }
-    .neon-glow-lg {
-      box-shadow: 0 0 35px rgba(138, 43, 226, 0.35);
-    }
-    .neon-text-glow {
-      text-shadow: 0 0 12px rgba(138, 43, 226, 0.8);
-    }
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            bg: '#0A0B10',
+                            card: '#12131C',
+                            border: 'rgba(138, 43, 226, 0.2)',
+                            accent: '#8A2BE2',
+                            accentGlow: '#A855F7',
+                            textMuted: '#9CA3AF',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    boxShadow: {
+                        neon: '0 0 20px rgba(138, 43, 226, 0.35)',
+                        neonSm: '0 0 10px rgba(138, 43, 226, 0.25)',
+                    }
+                }
+            }
+        }
+    </script>
 
-    /* Custom Cyber Scrollbar */
-    ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #0A0B10;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: rgba(138, 43, 226, 0.4);
-      border-radius: 3px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: rgba(138, 43, 226, 0.8);
-    }
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    /* Skeleton Pulse Animation */
-    .skeleton {
-      background: linear-gradient(90deg, #12131A 25%, #1F202C 50%, #12131A 75%);
-      background-size: 200% 100%;
-      animation: skeleton-loading 1.5s infinite;
-    }
-    @keyframes skeleton-loading {
-      0% { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
-    }
+    <!-- Supabase JS Client & Telegram WebApp SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-    /* Reaction Click Effect */
-    .reaction-btn:active {
-      transform: scale(0.85);
-    }
+    <!-- Custom Style Sheet for Cyber Effects & Grid -->
+    <style>
+        body {
+            background-color: #0A0B10;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 32px 32px;
+            color: #E5E7EB;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
 
-    /* Pulse Glow Effect for Brand Badges */
-    @keyframes subtle-pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.85; transform: scale(1.02); }
-    }
-    .pulse-glow {
-      animation: subtle-pulse 3s infinite ease-in-out;
-    }
-  </style>
+        .glass-panel {
+            background: rgba(18, 19, 28, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(138, 43, 226, 0.22);
+        }
+
+        .glass-panel-hover {
+            transition: all 0.3s ease;
+        }
+
+        .glass-panel-hover:hover {
+            border-color: rgba(168, 85, 247, 0.6);
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .cyber-gradient-text {
+            background: linear-gradient(135deg, #FFFFFF 0%, #A855F7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .cyber-badge {
+            background: rgba(138, 43, 226, 0.15);
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            color: #D8B4FE;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0A0B10;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(138, 43, 226, 0.4);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(168, 85, 247, 0.8);
+        }
+
+        /* Pulse glowing border effect */
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(138, 43, 226, 0.3); }
+            50% { box-shadow: 0 0 28px rgba(168, 85, 247, 0.6); }
+        }
+        .glow-pulse {
+            animation: pulseGlow 3s infinite ease-in-out;
+        }
+    </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between selection:bg-brand selection:text-white pb-20 md:pb-0">
+<body class="min-h-screen flex flex-col pb-24 md:pb-12 antialiased selection:bg-purple-600 selection:text-white">
 
-  <!-- ========================================== -->
-  <!-- HEADER & NAVIGATION                        -->
-  <!-- ========================================== -->
-  <header class="sticky top-0 z-40 glass-panel border-b border-brand-border/40">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-      
-      <!-- Logo & Title -->
-      <div class="flex items-center gap-3 cursor-pointer" onclick="filterCategory('all')">
-        <div class="w-10 h-10 rounded-full border border-brand/60 bg-brand-input flex items-center justify-center neon-glow">
-          <i class="fa-solid font-mono text-brand text-lg">🐙</i>
-        </div>
-        <div>
-          <span class="font-mono font-bold tracking-wider text-lg text-white flex items-center gap-1.5">
-            MARIX <span class="text-brand neon-text-glow">SYSTEMS</span>
-          </span>
-          <span class="hidden sm:block text-[10px] font-mono text-gray-400 tracking-widest uppercase">Sovereign Ecosystem</span>
-        </div>
-      </div>
-
-      <!-- Navigation Links -->
-      <nav class="hidden md:flex items-center gap-6 text-xs font-mono font-medium">
-        <button onclick="switchTab('feed')" class="nav-link text-white hover:text-brand transition flex items-center gap-2">
-          <i class="fa-solid fa-newspaper text-xs text-brand"></i> Стрічка
-        </button>
-        <button onclick="showToast('Розділ Дошка Пошани відкриється в V2.0', 'info')" class="nav-link text-gray-400 hover:text-white transition flex items-center gap-2">
-          <i class="fa-solid fa-trophy text-xs"></i> Дошка Пошани
-        </button>
-        <button onclick="showToast('Закладки збережено у локальному сховищі', 'info')" class="nav-link text-gray-400 hover:text-white transition flex items-center gap-2">
-          <i class="fa-solid fa-bookmark text-xs"></i> Закладки
-        </button>
-      </nav>
-
-      <!-- User Auth & Action Buttons -->
-      <div class="flex items-center gap-2.5">
-        <!-- Admin Panel Toggle -->
-        <button id="admin-nav-btn" onclick="openModal('modal-admin')" class="px-3 py-1.5 text-xs font-mono bg-red-950/40 border border-red-500/50 text-red-400 rounded-lg hover:bg-red-900/50 transition flex items-center gap-1">
-          <i class="fa-solid fa-shield-halved"></i> <span class="hidden sm:inline">Адмінка</span>
-        </button>
-
-        <!-- Access Key Button -->
-        <button id="key-login-btn" onclick="openModal('modal-auth')" class="px-3 py-1.5 text-xs font-mono bg-brand/20 border border-brand/50 text-brand-glow rounded-lg hover:bg-brand/30 transition flex items-center gap-1.5">
-          <i class="fa-solid fa-key text-brand"></i> <span id="key-btn-text">Код Суверена</span>
-        </button>
-
-        <!-- Sovereign Profile Trigger -->
-        <div id="user-avatar-btn" onclick="openProfileModal()" class="cursor-pointer w-9 h-9 rounded-full bg-brand-input border border-brand/60 flex items-center justify-center font-mono font-bold text-brand overflow-hidden hover:border-brand-glow transition neon-glow">
-          <span id="user-avatar-initial">S</span>
-          <img id="user-avatar-img" class="w-full h-full object-cover hidden" alt="Avatar">
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <!-- ========================================== -->
-  <!-- MAIN CONTENT CONTAINER                     -->
-  <!-- ========================================== -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-grow w-full">
-
-    <!-- HERO / BANNER SECTION -->
-    <section class="text-center my-6 md:my-10 relative">
-      <div class="inline-block relative">
-        <div class="w-24 h-24 md:w-28 md:h-28 mx-auto rounded-full glass-panel border-2 border-brand/80 flex items-center justify-center neon-glow-lg mb-4 relative overflow-hidden group">
-          <span class="text-4xl text-brand group-hover:scale-110 transition duration-300">🐙</span>
-          <div class="absolute bottom-0 w-full bg-brand/80 text-[8px] font-mono py-0.5 tracking-tighter text-white font-bold">MARIX PROTOCOL</div>
-        </div>
-      </div>
-      
-      <h1 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight font-mono mb-2">
-        MARIX <span class="text-brand neon-text-glow">SYSTEMS</span>
-      </h1>
-      <p class="text-xs md:text-sm text-gray-400 max-w-xl mx-auto font-sans font-light px-4">
-        Автономна мережа знань, ШІ-інструментів, алгоритмів та інтелектуальний архів Суверенів.
-      </p>
-
-      <!-- Main Action Buttons -->
-      <div class="mt-6 flex flex-wrap justify-center gap-3">
-        <button onclick="openModal('modal-create-post')" class="px-5 py-2.5 rounded-xl bg-brand hover:bg-brand-hover text-white text-xs md:text-sm font-semibold shadow-lg shadow-brand/30 font-mono flex items-center gap-2 transition transform active:scale-95">
-          <i class="fa-solid fa-pen-nib"></i> Написати статтю
-        </button>
-        <button onclick="showToast('Публікація відкритих проектів активується в V2.0', 'info')" class="px-5 py-2.5 rounded-xl glass-panel text-gray-300 hover:text-white text-xs md:text-sm font-semibold font-mono flex items-center gap-2 transition border border-gray-800 hover:border-brand/50">
-          <i class="fa-solid fa-code-branch text-brand"></i> Опублікувати проєкт
-        </button>
-      </div>
-    </section>
-
-    <!-- CATEGORIES FILTER & SEARCH -->
-    <section class="my-8 max-w-4xl mx-auto space-y-4">
-      <!-- Category Tabs -->
-      <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none justify-start md:justify-center text-xs font-mono">
-        <button onclick="filterCategory('all')" class="cat-filter-btn px-4 py-2 rounded-lg bg-brand text-white border border-brand/50 whitespace-nowrap font-medium" data-cat="all">
-          <i class="fa-solid fa-border-all mr-1"></i> Усі матеріали
-        </button>
-        <button onclick="filterCategory('bots')" class="cat-filter-btn px-4 py-2 rounded-lg glass-panel text-gray-400 hover:text-white border border-brand-border/30 whitespace-nowrap" data-cat="bots">
-          <i class="fa-solid fa-robot mr-1 text-brand"></i> TG Боти & ШІ
-        </button>
-        <button onclick="filterCategory('planners')" class="cat-filter-btn px-4 py-2 rounded-lg glass-panel text-gray-400 hover:text-white border border-brand-border/30 whitespace-nowrap" data-cat="planners">
-          <i class="fa-solid fa-calendar-check mr-1 text-brand"></i> Планери & Notion
-        </button>
-        <button onclick="filterCategory('google')" class="cat-filter-btn px-4 py-2 rounded-lg glass-panel text-gray-400 hover:text-white border border-brand-border/30 whitespace-nowrap" data-cat="google">
-          <i class="fa-solid fa-layer-group mr-1 text-brand"></i> Google Додатки
-        </button>
-        <button onclick="filterCategory('philosophy')" class="cat-filter-btn px-4 py-2 rounded-lg glass-panel text-gray-400 hover:text-white border border-brand-border/30 whitespace-nowrap" data-cat="philosophy">
-          <i class="fa-solid fa-book-bookmark mr-1 text-brand"></i> Блог / Філософія
-        </button>
-      </div>
-
-      <!-- Search Input & Sovereign Filter Toggle -->
-      <div class="flex items-center gap-2 max-w-2xl mx-auto">
-        <div class="relative flex-grow">
-          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500 text-xs"></i>
-          <input type="text" id="search-input" oninput="handleSearch()" placeholder="Пошук по тегах, назві або автору..." class="w-full bg-brand-input border border-brand-border/40 rounded-xl pl-9 pr-4 py-2.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-brand transition">
-        </div>
-        <button id="sovereign-only-filter" onclick="toggleSovereignFilter()" class="px-3.5 py-2.5 rounded-xl glass-panel text-xs text-gray-400 hover:text-amber-400 border border-brand-border/30 flex items-center gap-1.5 whitespace-nowrap transition">
-          <i class="fa-solid fa-crown text-amber-400"></i> <span class="hidden sm:inline font-mono">Лише Суверени</span>
-        </button>
-      </div>
-    </section>
-
-    <!-- POSTS FEED CONTAINER -->
-    <section class="max-w-5xl mx-auto">
-      <div id="posts-feed" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <!-- Posts generated dynamically via JavaScript -->
-      </div>
-    </section>
-
-  </main>
-
-  <!-- FOOTER -->
-  <footer class="border-t border-brand-border/20 py-6 mt-12 glass-panel">
-    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-gray-500">
-      <div>© 2026 <strong class="text-gray-300">MARIX SYSTEMS</strong>. Симбіоз та Суверенітет.</div>
-      <div class="flex items-center gap-4">
-        <button onclick="openModal('modal-admin')" class="hover:text-brand transition"><i class="fa-solid fa-shield-halved"></i> Адмінка</button>
-        <button onclick="showToast('Синхронізацію з Ботом активовано', 'success')" class="hover:text-brand transition"><i class="fa-paper-plane font-mono"></i> Bot Сповіщення</button>
-      </div>
-    </div>
-  </footer>
-
-  <!-- MOBILE BOTTOM NAVIGATION BAR -->
-  <div class="md:hidden fixed bottom-0 left-0 right-0 z-40 glass-panel border-t border-brand-border/40 py-2.5 px-6 flex justify-around items-center">
-    <button onclick="switchTab('feed')" class="flex flex-col items-center gap-1 text-brand text-[10px] font-mono">
-      <i class="fa-solid fa-house text-base"></i> Стрічка
-    </button>
-    <button onclick="openModal('modal-create-post')" class="w-11 h-11 rounded-full bg-brand text-white flex items-center justify-center neon-glow -mt-6 border-2 border-brand-dark transition active:scale-90">
-      <i class="fa-solid fa-plus text-lg"></i>
-    </button>
-    <button onclick="openProfileModal()" class="flex flex-col items-center gap-1 text-gray-400 hover:text-white text-[10px] font-mono">
-      <i class="fa-solid fa-user text-base"></i> Профіль
-    </button>
-  </div>
-
-
-  <!-- ========================================== -->
-  <!-- MODALS SECTION                             -->
-  <!-- ========================================== -->
-
-  <!-- 1. FULL POST READER MODAL -->
-  <div id="modal-full-post" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-    <div class="glass-modal w-full max-w-2xl max-h-[90vh] rounded-2xl flex flex-col overflow-hidden border-brand/50 shadow-2xl">
-      <div class="p-4 border-b border-brand-border/30 flex justify-between items-center bg-brand-input/40">
-        <span class="text-xs font-mono text-brand flex items-center gap-1.5 font-bold">
-          <i class="fa-solid fa-file-lines"></i> ПОВНИЙ МАТЕРІАЛ
-        </span>
-        <button onclick="closeModal('modal-full-post')" class="text-gray-400 hover:text-white p-1 rounded-lg hover:bg-white/10 transition">
-          <i class="fa-solid fa-xmark text-lg"></i>
-        </button>
-      </div>
-
-      <div class="p-6 overflow-y-auto space-y-4 flex-grow">
-        <!-- Author Info -->
-        <div id="full-post-author" class="flex items-center gap-3"></div>
-        
-        <!-- Post Title -->
-        <h2 id="full-post-title" class="text-xl md:text-2xl font-bold text-white font-mono leading-tight"></h2>
-        
-        <!-- Tags -->
-        <div id="full-post-tags" class="flex flex-wrap gap-1.5"></div>
-        
-        <!-- Main Content Text -->
-        <div id="full-post-content" class="text-xs md:text-sm leading-relaxed text-gray-300 font-sans whitespace-pre-wrap pt-3 border-t border-gray-800"></div>
-        
-        <!-- Changelog Section -->
-        <div id="full-post-changelog-container" class="hidden mt-6 p-4 rounded-xl bg-brand-input/80 border border-brand-border/40 space-y-2">
-          <h4 class="text-xs font-mono font-bold text-brand uppercase tracking-wider flex items-center gap-2">
-            <i class="fa-solid fa-clock-rotate-left"></i> Історія оновлень (Changelog)
-          </h4>
-          <div id="full-post-changelog-list" class="space-y-2 text-xs font-mono text-gray-300 divide-y divide-gray-800/60"></div>
-        </div>
-
-        <!-- Telegram Comments Widget Mockup -->
-        <div class="mt-8 pt-4 border-t border-gray-800">
-          <h4 class="text-xs font-mono text-gray-400 mb-3 flex items-center gap-1.5">
-            <i class="fa-solid fa-comments text-brand"></i> Обговорення Спільноти (Telegram)
-          </h4>
-          <div id="telegram-comments-box" class="p-4 rounded-xl bg-brand-input/40 border border-brand-border/20 space-y-3">
-            <div class="flex items-start gap-3">
-              <div class="w-7 h-7 rounded-full bg-brand/30 border border-brand/50 text-brand flex items-center justify-center font-mono font-bold text-xs">M</div>
-              <div class="text-xs">
-                <span class="font-bold text-white font-mono">Max_Cyber</span> <span class="text-[10px] text-gray-500 font-mono">14:20</span>
-                <p class="text-gray-300 mt-0.5">Чудовий фреймворк! Чи можна інтегрувати це з Notion API напряму?</p>
-              </div>
-            </div>
-            <div class="flex items-start gap-3 pl-6 border-l border-brand-border/30">
-              <div class="w-7 h-7 rounded-full bg-purple-900/50 border border-purple-500/50 text-purple-300 flex items-center justify-center font-mono font-bold text-xs">A</div>
-              <div class="text-xs">
-                <span class="font-bold text-white font-mono">Alex_Neo</span> <span class="text-[10px] text-gray-500 font-mono">14:35</span>
-                <p class="text-gray-300 mt-0.5">Так, оновлення з вебхуком буде доступне в наступній версії changelog.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 2. CREATE / EDIT POST MODAL -->
-  <div id="modal-create-post" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-    <div class="glass-modal w-full max-w-lg rounded-2xl p-6 border-brand/50 max-h-[90vh] overflow-y-auto">
-      <div class="flex justify-between items-center mb-4 border-b border-brand-border/30 pb-3">
-        <h3 id="modal-post-title-text" class="text-sm font-mono font-bold text-white flex items-center gap-2">
-          <i class="fa-solid fa-pen text-brand"></i> Написати статтю
-        </h3>
-        <button onclick="closeModal('modal-create-post')" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
-      </div>
-      <form id="post-form" onsubmit="handlePostSubmit(event)" class="space-y-4">
-        <input type="hidden" id="post-edit-id" value="">
-        <div>
-          <label class="block text-xs font-mono text-gray-400 mb-1">Заголовок статті</label>
-          <input type="text" id="post-title" required placeholder="Назва вашого матеріалу..." class="w-full bg-brand-input border border-brand-border/40 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-brand transition">
-        </div>
-        <div>
-          <label class="block text-xs font-mono text-gray-400 mb-1">Категорія</label>
-          <select id="post-category" required class="w-full bg-brand-input border border-brand-border/40 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-brand transition">
-            <option value="bots">TG Боти & ШІ</option>
-            <option value="planners">Планери & Notion</option>
-            <option value="google">Google Додатки</option>
-            <option value="philosophy">Блог / Філософія</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-xs font-mono text-gray-400 mb-1">Теги (через кому)</label>
-          <input type="text" id="post-tags" placeholder="ШІ, Notion, Протоколи" class="w-full bg-brand-input border border-brand-border/40 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-brand transition">
-        </div>
-        <div>
-          <label class="block text-xs font-mono text-gray-400 mb-1">Текст статті</label>
-          <textarea id="post-content" rows="6" required placeholder="Повний текст вашого опусу або документації..." class="w-full bg-brand-input border border-brand-border/40 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-brand transition leading-relaxed"></textarea>
-        </div>
-        <button type="submit" class="w-full py-2.5 rounded-xl bg-brand hover:bg-brand-hover text-white text-xs font-mono font-bold transition shadow-lg shadow-brand/30 flex items-center justify-center gap-2">
-          <i class="fa-solid fa-paper-plane"></i> Опублікувати матеріал
-        </button>
-      </form>
-    </div>
-  </div>
-
-  <!-- 3. ADD CHANGELOG MODAL -->
-  <div id="modal-changelog" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-    <div class="glass-modal w-full max-w-md rounded-2xl p-6 border-brand/50">
-      <div class="flex justify-between items-center mb-4 border-b border-brand-border/30 pb-3">
-        <h3 class="text-sm font-mono font-bold text-white flex items-center gap-2">
-          <i class="fa-solid fa-code-commit text-brand"></i> Додати оновлення (Changelog)
-        </h3>
-        <button onclick="closeModal('modal-changelog')" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
-      </div>
-      <form id="changelog-form" onsubmit="handleChangelogSubmit(event)" class="space-y-4">
-        <input type="hidden" id="changelog-post-id" value="">
-        <div>
-          <label class="block text-xs font-mono text-gray-400 mb-1">Опис змін або версії</label>
-          <textarea id="changelog-text" rows="3" required placeholder="Опишіть, що було виправлено або додано..." class="w-full bg-brand-input border border-brand-border/40 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-brand transition"></textarea>
-        </div>
-        <button type="submit" class="w-full py-2.5 rounded-xl bg-brand hover:bg-brand-hover text-white text-xs font-mono font-bold transition">
-          Зберегти запис в Changelog
-        </button>
-      </form>
-    </div>
-  </div>
-
-  <!-- 4. SOVEREIGN PROFILE MODAL -->
-  <div id="modal-profile" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-    <div class="glass-modal w-full max-w-lg rounded-2xl p-6 border-brand/50 max-h-[90vh] overflow-y-auto">
-      <div class="flex justify-between items-center mb-4 border-b border-brand-border/30 pb-3">
-        <h3 class="text-sm font-mono font-bold text-white flex items-center gap-2">
-          <i class="fa-solid fa-id-card text-brand"></i> Sovereign Profile
-        </h3>
-        <button onclick="closeModal('modal-profile')" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
-      </div>
-      
-      <div class="flex flex-col items-center text-center space-y-3">
-        <div class="relative group">
-          <div id="profile-avatar-box" class="w-20 h-20 rounded-full bg-brand-input border-2 border-brand flex items-center justify-center text-2xl font-bold font-mono text-brand overflow-hidden neon-glow">
-            <span id="profile-avatar-initial">S</span>
-            <img id="profile-avatar-img" class="w-full h-full object-cover hidden" alt="Avatar">
-          </div>
-          <label class="absolute bottom-0 right-0 bg-brand text-white p-1.5 rounded-full cursor-pointer hover:bg-brand-hover text-xs shadow-md">
-            <i class="fa-solid fa-camera"></i>
-            <input type="file" id="avatar-input" accept="image/*" class="hidden" onchange="uploadAvatar(event)">
-          </label>
-        </div>
-
-        <div>
-          <h2 id="profile-name" class="text-lg font-bold text-white font-mono">Alex_Neo</h2>
-          <span id="profile-badge" class="inline-block mt-1 px-3 py-0.5 rounded-full text-[10px] font-mono bg-amber-950/60 text-amber-400 border border-amber-500/40">SOVEREIGN</span>
-        </div>
-      </div>
-
-      <form id="profile-form" onsubmit="handleProfileUpdate(event)" class="space-y-3 mt-6">
-        <div>
-          <label class="block text-xs font-mono text-gray-400 mb-1">Біографічна примітка (Bio)</label>
-          <textarea id="profile-bio" rows="2" placeholder="Розпочніть коротку історію про себе..." class="w-full bg-brand-input border border-brand-border/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand transition">Архітектор автономних систем та ШІ-асистентів у MARIX ecosystem.</textarea>
-        </div>
-        <div>
-          <label class="block text-xs font-mono text-gray-400 mb-1">Бекграунд / Посилання (GitHub, TG)</label>
-          <input type="text" id="profile-background" placeholder="https://github.com/username" value="https://github.com/marix-sovereign" class="w-full bg-brand-input border border-brand-border/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand transition">
-        </div>
-        <button type="submit" class="w-full py-2 rounded-xl bg-brand/30 border border-brand text-brand-glow hover:bg-brand hover:text-white text-xs font-mono font-semibold transition">
-          Оновити дані профілю
-        </button>
-      </form>
-
-      <!-- Published Posts List -->
-      <div class="mt-6 pt-4 border-t border-gray-800">
-        <h4 class="text-xs font-mono text-gray-400 mb-2 flex items-center gap-1.5">
-          <i class="fa-solid fa-newspaper text-brand"></i> Опубліковані матеріали
-        </h4>
-        <div id="profile-user-posts" class="space-y-1.5 text-xs font-mono max-h-36 overflow-y-auto">
-          <!-- Dynamically populated -->
-        </div>
-      </div>
-
-      <div class="mt-6 pt-2 flex justify-end">
-        <button onclick="logout()" class="text-xs font-mono text-red-400 hover:text-red-300 flex items-center gap-1">
-          <i class="fa-solid fa-right-from-bracket"></i> Вийти з акаунту
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 5. AUTH ACCESS KEY MODAL -->
-  <div id="modal-auth" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-    <div class="glass-modal w-full max-w-sm rounded-2xl p-6 border-brand/50 text-center">
-      <div class="w-12 h-12 rounded-full bg-brand/20 border border-brand text-brand flex items-center justify-center mx-auto mb-3 neon-glow">
-        <i class="fa-solid fa-key text-xl"></i>
-      </div>
-      <h3 class="text-sm font-mono font-bold text-white mb-1">Авторизація Суверена</h3>
-      <p class="text-xs text-gray-400 mb-4 font-sans">Введіть ваш секретний ключ доступу для активації привілейованого статусу.</p>
-      
-      <form onsubmit="handleKeyAuth(event)" class="space-y-3">
-        <input type="password" id="auth-key-input" required placeholder="••••••••••••••••" class="w-full bg-brand-input border border-brand-border/40 rounded-xl px-3.5 py-2.5 text-center font-mono text-sm text-white focus:outline-none focus:border-brand transition">
-        <button type="submit" class="w-full py-2.5 rounded-xl bg-brand hover:bg-brand-hover text-white text-xs font-mono font-bold transition shadow-lg shadow-brand/30">
-          Підтвердити Ключ
-        </button>
-      </form>
-      <div class="mt-3 text-[11px] text-gray-500 font-mono">
-        Тестовий ключ: <code class="text-brand-glow">SOVEREIGN2026</code>
-      </div>
-      <button onclick="closeModal('modal-auth')" class="mt-3 text-xs text-gray-400 hover:text-gray-200 font-mono">Скасувати</button>
-    </div>
-  </div>
-
-  <!-- 6. ADMIN PANEL MODAL -->
-  <div id="modal-admin" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-    <div class="glass-modal w-full max-w-3xl rounded-2xl p-6 border-red-500/40 max-h-[90vh] overflow-y-auto">
-      <div class="flex justify-between items-center mb-6 border-b border-red-500/20 pb-3">
-        <h3 class="text-sm font-mono font-bold text-red-400 flex items-center gap-2">
-          <i class="fa-solid fa-user-shield"></i> Панель Адміністрування MARIX
-        </h3>
-        <button onclick="closeModal('modal-admin')" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
-      </div>
-
-      <!-- Stats Grid -->
-      <div class="grid grid-cols-3 gap-3 mb-6 font-mono text-center">
-        <div class="p-3 rounded-xl bg-brand-input/80 border border-brand-border/30">
-          <div id="admin-stat-users" class="text-xl font-bold text-white">28</div>
-          <div class="text-[10px] text-gray-400 uppercase">Усього юзерів</div>
-        </div>
-        <div class="p-3 rounded-xl bg-brand-input/80 border border-brand-border/30">
-          <div id="admin-stat-sovereigns" class="text-xl font-bold text-amber-400">12</div>
-          <div class="text-[10px] text-gray-400 uppercase">Суверенів</div>
-        </div>
-        <div class="p-3 rounded-xl bg-brand-input/80 border border-brand-border/30">
-          <div id="admin-stat-posts" class="text-xl font-bold text-brand-glow">14</div>
-          <div class="text-[10px] text-gray-400 uppercase">Публікацій</div>
-        </div>
-      </div>
-
-      <!-- Users Table -->
-      <h4 class="text-xs font-mono text-gray-300 mb-3 flex items-center gap-1.5">
-        <i class="fa-solid fa-users text-red-400"></i> Управління Користувачами
-      </h4>
-      <div class="overflow-x-auto rounded-xl border border-gray-800">
-        <table class="w-full text-left text-xs font-mono border-collapse">
-          <thead>
-            <tr class="bg-brand-input/80 text-gray-400 border-b border-gray-800">
-              <th class="py-2.5 px-3">ID / Telegram</th>
-              <th class="py-2.5 px-3">Ім'я</th>
-              <th class="py-2.5 px-3">Статус</th>
-              <th class="py-2.5 px-3 text-right">Дії</th>
-            </tr>
-          </thead>
-          <tbody id="admin-users-table" class="divide-y divide-gray-800/60 text-gray-300 bg-brand-input/30">
-            <!-- Dynamically populated -->
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <!-- TOAST NOTIFICATION CONTAINER -->
-  <div id="toast-container" class="fixed top-20 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
-
-
-  <!-- ========================================== -->
-  <!-- JAVASCRIPT APP LOGIC & MOCK DATA           -->
-  <!-- ========================================== -->
-  <script>
-    // Global User State
-    let currentUser = {
-      id: 'usr_sovereign_1',
-      telegram_id: '99887766',
-      username: 'Alex_Neo',
-      role: 'sovereign', // 'guest', 'sovereign', 'admin'
-      is_sovereign: true,
-      avatar_url: null,
-      bio: 'Архітектор автономних систем та ШІ-асистентів у MARIX ecosystem.',
-      background: 'https://github.com/marix-sovereign'
-    };
-
-    // Sample Interactive Posts Dataset
-    let allPostsData = [
-      {
-        id: 'post-1',
-        title: 'Забрати "Код Суверена" (Gumroad Protocol V1.4)',
-        author_id: 'usr_sovereign_1',
-        author_name: 'MARIX Systems',
-        author_avatar: null,
-        is_sovereign: true,
-        category: 'google',
-        tags: ['ШІ', 'Gumroad', 'Суверен', 'Notion'],
-        content: 'Базовий фреймворк та система протоколів для організації цифрового життя, ШІ-асистентів та особистої ефективності.\n\nУ цій версії додано інтеграцію з авто-звітами, локальними базами знань та резервним копіюванням через Telegram WebApp.',
-        reactions: { fire: 24, brain: 38, shield: 45 },
-        created_at: '2026-10-24T12:00:00Z',
-        changelog: [
-          { date: '24.10.2026', text: 'Додано протокол автоматичного зберігання даних у Supabase.' },
-          { date: '18.10.2026', text: 'Початкова публікація архітектури Коду Суверена.' }
-        ],
-        telegram_message_id: '101'
-      },
-      {
-        id: 'post-2',
-        title: 'Ера Симбіозу: Як не стати сировиною для Нейромереж',
-        author_id: 'usr_sovereign_1',
-        author_name: 'Alex_Neo',
-        author_avatar: null,
-        is_sovereign: true,
-        category: 'philosophy',
-        tags: ['Філософія', 'ШІ', 'Майбутнє', 'Автономність'],
-        content: 'Роздуми про те, як людина повинна будувати власну автономність у світі домінування великих мовних моделей. Персональні бази знань замість сервісів підписок — це єдиний спосіб зберегти інтелектуальний суверенітет.',
-        reactions: { fire: 18, brain: 42, shield: 29 },
-        created_at: '2026-10-22T15:30:00Z',
-        changelog: [],
-        telegram_message_id: null
-      },
-      {
-        id: 'post-3',
-        title: 'Автономний Telegram Бот-Планер з ШІ на Cloudflare Workers',
-        author_id: 'usr_guest_9',
-        author_name: 'Cyber_Architect',
-        author_avatar: null,
-        is_sovereign: false,
-        category: 'bots',
-        tags: ['TG Боти', 'Python', 'Cloudflare', 'ШІ'],
-        content: 'Покроковий гайд по розгортанню безкоштовного Telegram-бота для управління завданнями з використанням Llama-3 та серверлесс інфраструктури.',
-        reactions: { fire: 12, brain: 19, shield: 8 },
-        created_at: '2026-10-20T09:15:00Z',
-        changelog: [],
-        telegram_message_id: null
-      }
-    ];
-
-    let sampleUsersData = [
-      { id: 'usr_sovereign_1', telegram_id: '99887766', username: 'Alex_Neo', is_sovereign: true },
-      { id: 'usr_guest_2', telegram_id: '11223344', username: 'Max_Cyber', is_sovereign: false },
-      { id: 'usr_guest_3', telegram_id: '55667788', username: 'Elena_V', is_sovereign: true },
-      { id: 'usr_guest_4', telegram_id: '44332211', username: 'Anon_User', is_sovereign: false }
-    ];
-
-    let activeCategory = 'all';
-    let onlySovereigns = false;
-
-    // Toast Notification Renderer
-    function showToast(message, type = 'info') {
-      const container = document.getElementById('toast-container');
-      const toast = document.createElement('div');
-      
-      const bgColors = {
-        success: 'border-emerald-500/50 bg-emerald-950/90 text-emerald-300',
-        error: 'border-rose-500/50 bg-rose-950/90 text-rose-300',
-        info: 'border-brand/50 bg-brand-input/95 text-brand-glow'
-      };
-
-      toast.className = `pointer-events-auto px-4 py-2.5 rounded-xl border text-xs font-mono shadow-xl backdrop-blur-md flex items-center gap-2 transition duration-300 transform translate-y-2 opacity-0 ${bgColors[type] || bgColors.info}`;
-      toast.innerHTML = `<i class="fa-solid ${type === 'success' ? 'fa-circle-check text-emerald-400' : type === 'error' ? 'fa-triangle-exclamation text-rose-400' : 'fa-circle-info text-brand'}"></i> <span>${message}</span>`;
-      
-      container.appendChild(toast);
-      setTimeout(() => { toast.classList.remove('translate-y-2', 'opacity-0'); }, 10);
-      
-      setTimeout(() => {
-        toast.classList.add('opacity-0');
-        setTimeout(() => toast.remove(), 300);
-      }, 3200);
-    }
-
-    // Modal Helpers
-    function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
-    function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
-
-    // Render Posts Feed
-    function renderPosts() {
-      const feedBox = document.getElementById('posts-feed');
-      feedBox.innerHTML = '';
-
-      let filtered = allPostsData.filter(post => {
-        const matchesCategory = activeCategory === 'all' || post.category === activeCategory;
-        const matchesSovereign = !onlySovereigns || post.is_sovereign;
-        return matchesCategory && matchesSovereign;
-      });
-
-      if (filtered.length === 0) {
-        feedBox.innerHTML = `
-          <div class="col-span-full py-12 text-center text-gray-500 font-mono text-xs glass-panel rounded-2xl">
-            <i class="fa-solid fa-folder-open text-2xl text-brand mb-2"></i>
-            <div>Матеріалів за обраними критеріями не знайдено</div>
-          </div>`;
-        return;
-      }
-
-      filtered.forEach(post => {
-        const card = document.createElement('div');
-        card.className = 'glass-panel p-5 rounded-2xl flex flex-col justify-between transition duration-300 relative group';
-        
-        const avatarMarkup = post.author_avatar 
-          ? `<img src="${post.author_avatar}" class="w-8 h-8 rounded-full object-cover">`
-          : `<div class="w-8 h-8 rounded-full bg-brand/20 border border-brand/50 text-brand flex items-center justify-center font-mono font-bold text-xs">${(post.author_name || 'A').charAt(0)}</div>`;
-
-        const tagsMarkup = (post.tags || []).map(t => `<span class="px-2 py-0.5 rounded-md bg-brand-input text-[10px] font-mono text-brand-glow border border-brand-border/30">#${t}</span>`).join(' ');
-
-        card.innerHTML = `
-          <div>
-            <div class="flex items-center justify-between gap-2 mb-3">
-              <div class="flex items-center gap-2.5">
-                ${avatarMarkup}
+    <!-- ========================================== -->
+    <!-- TOP NAVIGATION HEADER                       -->
+    <!-- ========================================== -->
+    <header class="sticky top-0 z-40 w-full glass-panel border-b border-purple-900/30 px-4 lg:px-8 py-3">
+        <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+            
+            <!-- Brand Logo -->
+            <div class="flex items-center gap-3 cursor-pointer" onclick="switchView('feed')">
+                <div class="relative flex items-center justify-center w-10 h-10 rounded-xl bg-purple-950/60 border border-purple-500/40 text-purple-400 font-mono text-xl font-bold glow-pulse">
+                    <i class="fa-solid font-mono fa-cubes"></i>
+                </div>
                 <div>
-                  <div class="text-xs font-mono font-semibold text-white flex items-center gap-1">
-                    ${post.author_name || 'Анонім'}
-                    ${post.is_sovereign ? '<i class="fa-solid fa-crown text-[10px] text-amber-400"></i>' : ''}
-                  </div>
-                  <div class="text-[10px] font-mono text-gray-500">${new Date(post.created_at).toLocaleDateString('uk-UA')}</div>
+                    <div class="font-mono font-bold text-lg tracking-wider text-white flex items-center gap-2">
+                        MARIX <span class="text-purple-400">SYSTEMS</span>
+                    </div>
+                    <div class="text-[10px] text-purple-300/60 uppercase tracking-widest font-mono">Sovereign Ecosystem</div>
                 </div>
-              </div>
-              ${(currentUser.id === post.author_id || currentUser.role === 'admin') ? `
-                <div class="flex gap-1.5 opacity-80 group-hover:opacity-100 transition">
-                  <button onclick="openEditPost('${post.id}')" title="Редагувати" class="text-gray-400 hover:text-white p-1 text-xs"><i class="fa-solid fa-pen"></i></button>
-                  <button onclick="openAddChangelog('${post.id}')" title="Додати changelog" class="text-gray-400 hover:text-brand-glow p-1 text-xs"><i class="fa-solid fa-plus"></i></button>
+            </div>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center space-x-1 font-mono text-sm">
+                <button onclick="switchView('feed')" id="nav-feed" class="px-4 py-2 rounded-lg text-purple-300 hover:text-white hover:bg-purple-900/30 transition flex items-center gap-2 active-nav">
+                    <i class="fa-solid fa-newspaper text-xs"></i> Стрічка
+                </button>
+                <button onclick="switchView('leaderboard')" id="nav-leaderboard" class="px-4 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-purple-900/30 transition flex items-center gap-2">
+                    <i class="fa-solid fa-trophy text-xs"></i> Дошка Пошани
+                </button>
+                <button onclick="switchView('bookmarks')" id="nav-bookmarks" class="px-4 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-purple-900/30 transition flex items-center gap-2">
+                    <i class="fa-solid fa-bookmark text-xs"></i> Закладки
+                </button>
+            </nav>
+
+            <!-- Actions & Status Header Buttons -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                
+                <!-- Feedback Button -->
+                <button onclick="openModal('feedback-modal')" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono text-purple-300 hover:text-white bg-purple-950/40 border border-purple-500/30 hover:border-purple-400 transition">
+                    <i class="fa-regular fa-lightbulb text-yellow-400"></i>
+                    <span>Ідея</span>
+                </button>
+
+                <!-- Admin Button (Shown if sovereign/admin) -->
+                <button id="admin-header-btn" onclick="openAdminWithPin()" class="hidden items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono text-red-400 bg-red-950/30 border border-red-500/30 hover:bg-red-900/40 transition">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Адмінка</span>
+                </button>
+
+                <!-- Key Modal Button -->
+                <button onclick="openModal('key-modal')" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono bg-purple-600/20 text-purple-300 border border-purple-500/50 hover:bg-purple-600/40 transition shadow-neonSm">
+                    <i class="fa-solid fa-key text-purple-400"></i>
+                    <span id="sovereign-status-text">Суверенітет</span>
+                </button>
+
+                <!-- User Profile Avatar -->
+                <div onclick="switchView('profile')" class="relative cursor-pointer group">
+                    <img id="header-avatar" src="https://placehold.co/100x100/12131C/A855F7?text=M" alt="Profile" class="w-9 h-9 rounded-xl border border-purple-500/50 object-cover group-hover:border-purple-400 transition">
+                    <div id="header-sovereign-badge" class="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-purple-600 border border-black rounded-full flex items-center justify-center text-[8px] text-white">
+                        <i class="fa-solid fa-crown"></i>
+                    </div>
                 </div>
-              ` : ''}
+
             </div>
-
-            <h3 class="text-base font-mono font-bold text-white mb-2 line-clamp-2 hover:text-brand-glow transition cursor-pointer" onclick="openFullPost('${post.id}')">
-              ${post.title}
-            </h3>
-
-            <p class="text-xs text-gray-400 line-clamp-3 mb-4 leading-relaxed font-sans">
-              ${post.content}
-            </p>
-
-            <div class="flex flex-wrap gap-1.5 mb-4">
-              ${tagsMarkup}
-            </div>
-          </div>
-
-          <div class="pt-3 border-t border-gray-800/80 flex items-center justify-between text-xs font-mono">
-            <div class="flex items-center gap-3 text-gray-400">
-              <button onclick="reactPost('${post.id}', 'fire')" class="reaction-btn hover:text-amber-400 flex items-center gap-1 transition">
-                🔥 <span>${post.reactions?.fire || 0}</span>
-              </button>
-              <button onclick="reactPost('${post.id}', 'brain')" class="reaction-btn hover:text-purple-400 flex items-center gap-1 transition">
-                🧠 <span>${post.reactions?.brain || 0}</span>
-              </button>
-              <button onclick="reactPost('${post.id}', 'shield')" class="reaction-btn hover:text-blue-400 flex items-center gap-1 transition">
-                🛡️ <span>${post.reactions?.shield || 0}</span>
-              </button>
-            </div>
-
-            <button onclick="openFullPost('${post.id}')" class="text-[11px] text-brand-glow hover:underline flex items-center gap-1">
-              Читати далі <i class="fa-solid fa-arrow-right text-[9px]"></i>
-            </button>
-          </div>
-        `;
-        feedBox.appendChild(card);
-      });
-    }
-
-    // Category Filter Switcher
-    function filterCategory(cat) {
-      activeCategory = cat;
-      document.querySelectorAll('.cat-filter-btn').forEach(btn => {
-        if (btn.dataset.cat === cat) {
-          btn.classList.add('bg-brand', 'text-white');
-          btn.classList.remove('glass-panel', 'text-gray-400');
-        } else {
-          btn.classList.remove('bg-brand', 'text-white');
-          btn.classList.add('glass-panel', 'text-gray-400');
-        }
-      });
-      renderPosts();
-    }
-
-    // Toggle Sovereign Filter
-    function toggleSovereignFilter() {
-      onlySovereigns = !onlySovereigns;
-      const btn = document.getElementById('sovereign-only-filter');
-      btn.classList.toggle('border-amber-400/60', onlySovereigns);
-      btn.classList.toggle('text-amber-400', onlySovereigns);
-      renderPosts();
-    }
-
-    // Search Filter
-    function handleSearch() {
-      const q = document.getElementById('search-input').value.toLowerCase();
-      const cards = document.querySelectorAll('#posts-feed > div');
-      cards.forEach(card => {
-        const text = card.innerText.toLowerCase();
-        card.style.display = text.includes(q) ? 'flex' : 'none';
-      });
-    }
-
-    // React to Post
-    function reactPost(postId, type) {
-      const post = allPostsData.find(p => p.id === postId);
-      if (post) {
-        if (!post.reactions) post.reactions = { fire: 0, brain: 0, shield: 0 };
-        post.reactions[type] = (post.reactions[type] || 0) + 1;
-        renderPosts();
-        showToast(`Реакцію ${type === 'fire' ? '🔥' : type === 'brain' ? '🧠' : '🛡️'} зараховано!`, 'success');
-      }
-    }
-
-    // Open Reader Modal
-    function openFullPost(postId) {
-      const post = allPostsData.find(p => p.id === postId);
-      if (!post) return;
-
-      document.getElementById('full-post-title').innerText = post.title;
-      document.getElementById('full-post-content').innerText = post.content;
-      
-      const authorBox = document.getElementById('full-post-author');
-      authorBox.innerHTML = `
-        <div class="w-8 h-8 rounded-full bg-brand/30 border border-brand/50 text-brand flex items-center justify-center font-mono font-bold text-xs">${(post.author_name || 'A').charAt(0)}</div>
-        <div>
-          <div class="text-xs font-mono font-bold text-white flex items-center gap-1">
-            ${post.author_name} ${post.is_sovereign ? '<i class="fa-solid fa-crown text-[10px] text-amber-400"></i>' : ''}
-          </div>
-          <div class="text-[10px] font-mono text-gray-500">${new Date(post.created_at).toLocaleDateString('uk-UA')}</div>
         </div>
-      `;
+    </header>
 
-      const tagsContainer = document.getElementById('full-post-tags');
-      tagsContainer.innerHTML = (post.tags || []).map(t => `<span class="px-2 py-0.5 rounded-md bg-brand-input text-xs font-mono text-brand-glow">#${t}</span>`).join(' ');
+    <!-- ========================================== -->
+    <!-- MAIN CONTENT AREA                           -->
+    <!-- ========================================== -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 lg:px-8 pt-6">
 
-      // Changelog Logic
-      const changelogContainer = document.getElementById('full-post-changelog-container');
-      const changelogList = document.getElementById('full-post-changelog-list');
-      changelogList.innerHTML = '';
-      
-      if (post.changelog && post.changelog.length > 0) {
-        changelogContainer.classList.remove('hidden');
-        post.changelog.forEach(item => {
-          changelogList.innerHTML += `<div class="pt-1.5"><span class="text-brand font-bold">${item.date}:</span> ${item.text}</div>`;
-        });
-      } else {
-        changelogContainer.classList.add('hidden');
-      }
+        <!-- ========================================== -->
+        <!-- VIEW 1: PAYWALL SCREEN (Guests)            -->
+        <!-- ========================================== -->
+        <section id="view-paywall" class="hidden relative rounded-2xl overflow-hidden glass-panel p-8 md:p-12 text-center my-6 border border-purple-500/30">
+            <!-- Background blurred mock cards -->
+            <div class="absolute inset-0 opacity-15 blur-sm pointer-events-none grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+                <div class="bg-purple-900/40 h-32 rounded-xl"></div>
+                <div class="bg-purple-900/40 h-32 rounded-xl"></div>
+                <div class="bg-purple-900/40 h-32 rounded-xl"></div>
+                <div class="bg-purple-900/40 h-32 rounded-xl"></div>
+            </div>
 
-      openModal('modal-full-post');
-    }
+            <!-- Overlay Card -->
+            <div class="relative z-10 max-w-lg mx-auto flex flex-col items-center">
+                <div class="w-16 h-16 rounded-2xl bg-purple-950/80 border border-purple-500/50 flex items-center justify-center text-purple-400 text-3xl mb-6 shadow-neon">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <h2 class="text-2xl md:text-3xl font-mono font-bold text-white mb-3">Доступ обмежено</h2>
+                <p class="text-gray-400 text-sm md:text-base mb-8 leading-relaxed">
+                    Ти бачиш лише верхівку айсберга. Стань <span class="text-purple-400 font-semibold">Сувереном</span>, щоб читати, писати матеріали та отримувати доступ до закритих AI-інструментів.
+                </p>
 
-    // Open Edit Modal
-    function openEditPost(postId) {
-      const post = allPostsData.find(p => p.id === postId);
-      if (!post) return;
+                <div class="flex flex-col sm:flex-row gap-4 w-full">
+                    <button onclick="openModal('key-modal')" class="flex-1 py-3 px-6 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-mono font-semibold transition active:scale-95 shadow-neon">
+                        <i class="fa-solid fa-key mr-2"></i> Ввести Код
+                    </button>
+                    <a href="https://t.me/marix_systems_bot" target="_blank" class="flex-1 py-3 px-6 rounded-xl bg-purple-950/60 hover:bg-purple-900/60 text-purple-300 font-mono font-semibold border border-purple-500/30 transition text-center active:scale-95">
+                        <i class="fa-brands fa-telegram mr-2"></i> Купити Код
+                    </a>
+                </div>
+            </div>
+        </section>
 
-      document.getElementById('post-edit-id').value = post.id;
-      document.getElementById('post-title').value = post.title;
-      document.getElementById('post-category').value = post.category || 'philosophy';
-      document.getElementById('post-tags').value = (post.tags || []).join(', ');
-      document.getElementById('post-content').value = post.content;
-      document.getElementById('modal-post-title-text').innerHTML = '<i class="fa-solid fa-pen text-brand"></i> Редагувати матеріал';
 
-      openModal('modal-create-post');
-    }
+        <!-- ========================================== -->
+        <!-- VIEW 2: FEED SCREEN                        -->
+        <!-- ========================================== -->
+        <section id="view-feed" class="space-y-8">
+            
+            <!-- Hero Banner -->
+            <div class="relative rounded-2xl p-8 md:p-12 glass-panel border border-purple-500/30 overflow-hidden text-center flex flex-col items-center">
+                <div class="absolute -top-24 -left-24 w-60 h-60 bg-purple-600/20 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute -bottom-24 -right-24 w-60 h-60 bg-indigo-600/20 rounded-full blur-3xl pointer-events-none"></div>
 
-    // Handle New / Edited Post Submit
-    function handlePostSubmit(e) {
-      e.preventDefault();
+                <div class="w-20 h-20 mb-4 rounded-2xl bg-purple-950/60 border-2 border-purple-500/60 flex items-center justify-center text-purple-300 text-4xl shadow-neon">
+                    <i class="fa-solid fa-network-wired"></i>
+                </div>
 
-      const editId = document.getElementById('post-edit-id').value;
-      const title = document.getElementById('post-title').value;
-      const category = document.getElementById('post-category').value;
-      const tags = document.getElementById('post-tags').value.split(',').map(t => t.trim()).filter(Boolean);
-      const content = document.getElementById('post-content').value;
+                <h1 class="text-3xl md:text-5xl font-mono font-extrabold tracking-tight mb-3">
+                    MARIX <span class="text-purple-500">SYSTEMS</span>
+                </h1>
+                <p class="text-sm md:text-base text-gray-400 max-w-2xl leading-relaxed mb-6 font-mono">
+                    Автономна мережа знань, ШІ-інструментів, алгоритмів та інтелектуальний архів Суверенів.
+                </p>
 
-      if (editId) {
-        const idx = allPostsData.findIndex(p => p.id === editId);
-        if (idx !== -1) {
-          allPostsData[idx].title = title;
-          allPostsData[idx].category = category;
-          allPostsData[idx].tags = tags;
-          allPostsData[idx].content = content;
-        }
-        showToast('Матеріал успішно оновлено!', 'success');
-      } else {
-        const newPost = {
-          id: 'post-' + Date.now(),
-          title,
-          category,
-          tags,
-          content,
-          author_id: currentUser.id,
-          author_name: currentUser.username,
-          author_avatar: currentUser.avatar_url,
-          is_sovereign: currentUser.is_sovereign,
-          reactions: { fire: 0, brain: 0, shield: 0 },
-          created_at: new Date().toISOString(),
-          changelog: []
-        };
-        allPostsData.unshift(newPost);
-        showToast('Матеріал опубліковано у стрічці!', 'success');
-      }
+                <!-- Post Creation Quick Triggers -->
+                <div class="flex flex-wrap gap-3 justify-center">
+                    <button onclick="openModal('create-post-modal')" class="py-2.5 px-5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-mono text-sm font-medium transition shadow-neon active:scale-95 flex items-center gap-2">
+                        <i class="fa-solid fa-pen-nib"></i> Написати статтю
+                    </button>
+                    <button onclick="openModal('create-post-modal')" class="py-2.5 px-5 rounded-xl bg-purple-950/60 hover:bg-purple-900/60 text-purple-300 border border-purple-500/30 font-mono text-sm font-medium transition active:scale-95 flex items-center gap-2">
+                        <i class="fa-solid fa-code-fork"></i> Опублікувати проєкт
+                    </button>
+                </div>
+            </div>
 
-      closeModal('modal-create-post');
-      document.getElementById('post-form').reset();
-      document.getElementById('post-edit-id').value = '';
-      renderPosts();
-    }
+            <!-- Categories & Search Filters -->
+            <div class="space-y-4">
+                
+                <!-- Category Tabs -->
+                <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none font-mono text-xs">
+                    <button onclick="filterCategory('all')" class="cat-filter active-cat px-4 py-2 rounded-xl bg-purple-600 text-white border border-purple-400 transition whitespace-nowrap">
+                        <i class="fa-solid fa-table-cells mr-1.5"></i> Усі матеріали
+                    </button>
+                    <button onclick="filterCategory('tg_ai')" class="cat-filter px-4 py-2 rounded-xl bg-purple-950/40 text-purple-300 border border-purple-500/20 hover:border-purple-400 transition whitespace-nowrap">
+                        <i class="fa-solid fa-robot mr-1.5"></i> TG Боти & ШІ
+                    </button>
+                    <button onclick="filterCategory('notion')" class="cat-filter px-4 py-2 rounded-xl bg-purple-950/40 text-purple-300 border border-purple-500/20 hover:border-purple-400 transition whitespace-nowrap">
+                        <i class="fa-solid fa-calendar-check mr-1.5"></i> Планери & Notion
+                    </button>
+                    <button onclick="filterCategory('google')" class="cat-filter px-4 py-2 rounded-xl bg-purple-950/40 text-purple-300 border border-purple-500/20 hover:border-purple-400 transition whitespace-nowrap">
+                        <i class="fa-solid fa-puzzle-piece mr-1.5"></i> Google Додатки
+                    </button>
+                    <button onclick="filterCategory('blog')" class="cat-filter px-4 py-2 rounded-xl bg-purple-950/40 text-purple-300 border border-purple-500/20 hover:border-purple-400 transition whitespace-nowrap">
+                        <i class="fa-solid fa-book-open mr-1.5"></i> Блог / Філософія
+                    </button>
+                </div>
 
-    // Add Changelog Modal Handler
-    function openAddChangelog(postId) {
-      document.getElementById('changelog-post-id').value = postId;
-      openModal('modal-changelog');
-    }
+                <!-- Search Input & Sovereign Filter Toggle -->
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <div class="relative flex-grow">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-purple-400/60 text-sm"></i>
+                        <input type="text" id="feed-search-input" onkeyup="handleSearch()" placeholder="Пошук по тегах, назві або автору..." class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-purple-950/20 border border-purple-500/20 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition font-mono">
+                    </div>
 
-    function handleChangelogSubmit(e) {
-      e.preventDefault();
-      const postId = document.getElementById('changelog-post-id').value;
-      const text = document.getElementById('changelog-text').value;
+                    <button id="sovereign-only-filter-btn" onclick="toggleSovereignFilter()" class="px-4 py-2.5 rounded-xl bg-purple-950/40 border border-purple-500/20 text-xs font-mono text-purple-300 hover:text-white flex items-center justify-center gap-2 transition whitespace-nowrap">
+                        <i class="fa-solid fa-crown text-yellow-400"></i>
+                        <span>Лише Суверени</span>
+                    </button>
+                </div>
+            </div>
 
-      const post = allPostsData.find(p => p.id === postId);
-      if (post) {
-        if (!post.changelog) post.changelog = [];
-        const entry = { date: new Date().toLocaleDateString('uk-UA'), text };
-        post.changelog.unshift(entry);
-        showToast('Новий запис додано до Changelog!', 'success');
-        closeModal('modal-changelog');
-        document.getElementById('changelog-form').reset();
-      }
-    }
+            <!-- Feed Posts List Container -->
+            <div id="posts-feed-container" class="space-y-4">
+                <!-- Dynamic post cards loaded via JavaScript -->
+            </div>
 
-    // Open User Profile
-    function openProfileModal() {
-      document.getElementById('profile-name').innerText = currentUser.username;
-      document.getElementById('profile-bio').value = currentUser.bio;
-      document.getElementById('profile-background').value = currentUser.background;
+            <!-- Skeleton Loader (Hidden when loaded) -->
+            <div id="feed-skeleton" class="hidden space-y-4">
+                <div class="p-6 rounded-2xl glass-panel animate-pulse space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-purple-900/30"></div>
+                        <div class="space-y-2 flex-grow">
+                            <div class="h-4 bg-purple-900/30 rounded w-1/4"></div>
+                            <div class="h-3 bg-purple-900/20 rounded w-1/6"></div>
+                        </div>
+                    </div>
+                    <div class="h-6 bg-purple-900/30 rounded w-3/4"></div>
+                    <div class="h-12 bg-purple-900/20 rounded w-full"></div>
+                </div>
+            </div>
 
-      const userPostsList = document.getElementById('profile-user-posts');
-      const myPosts = allPostsData.filter(p => p.author_id === currentUser.id);
-      
-      if (myPosts.length > 0) {
-        userPostsList.innerHTML = myPosts.map(p => `
-          <div onclick="openFullPost('${p.id}')" class="p-2 rounded bg-brand-input/60 hover:bg-brand-input border border-brand-border/20 cursor-pointer truncate text-gray-300 transition">
-            • ${p.title}
-          </div>
-        `).join('');
-      } else {
-        userPostsList.innerHTML = `<p class="text-gray-500 italic">У вас поки немає публікацій</p>`;
-      }
+        </section>
 
-      openModal('modal-profile');
-    }
 
-    // Handle Profile Edit
-    function handleProfileUpdate(e) {
-      e.preventDefault();
-      currentUser.bio = document.getElementById('profile-bio').value;
-      currentUser.background = document.getElementById('profile-background').value;
-      showToast('Дані профілю збережено!', 'success');
-      closeModal('modal-profile');
-    }
+        <!-- ========================================== -->
+        <!-- VIEW 3: PROFILE SCREEN (User Wall)         -->
+        <!-- ========================================== -->
+        <section id="view-profile" class="hidden space-y-6">
+            
+            <!-- Banner Header -->
+            <div class="relative rounded-2xl glass-panel overflow-hidden border border-purple-500/30">
+                <div id="profile-cover" class="h-40 md:h-52 w-full bg-cover bg-center relative" style="background-image: url('https://placehold.co/1200x400/0A0B10/8A2BE2?text=MARIX+SOVEREIGN+NETWORK');">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0A0B10] via-transparent to-transparent"></div>
+                </div>
 
-    // Avatar Upload Mock
-    function uploadAvatar(e) {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(evt) {
-          currentUser.avatar_url = evt.target.result;
-          document.getElementById('user-avatar-img').src = currentUser.avatar_url;
-          document.getElementById('user-avatar-img').classList.remove('hidden');
-          document.getElementById('user-avatar-initial').classList.add('hidden');
-          document.getElementById('profile-avatar-img').src = currentUser.avatar_url;
-          document.getElementById('profile-avatar-img').classList.remove('hidden');
-          document.getElementById('profile-avatar-initial').classList.add('hidden');
-          showToast('Аватар оновлено!', 'success');
-        };
-        reader.readAsDataURL(file);
-      }
-    }
+                <div class="p-6 pt-0 relative flex flex-col sm:flex-row items-center sm:items-end justify-between gap-4 -mt-16 sm:-mt-12">
+                    
+                    <div class="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+                        <div class="relative">
+                            <img id="profile-avatar" src="https://placehold.co/150x150/12131C/A855F7?text=M" alt="Avatar" class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl border-2 border-purple-500 object-cover shadow-neon">
+                            <label for="avatar-input" class="absolute bottom-0 right-0 w-8 h-8 rounded-lg bg-purple-600 hover:bg-purple-500 text-white flex items-center justify-center cursor-pointer transition shadow">
+                                <i class="fa-solid fa-camera text-xs"></i>
+                            </label>
+                            <input type="file" id="avatar-input" class="hidden" accept="image/*" onchange="handleAvatarUpload(event)">
+                        </div>
 
-    // Sovereign Key Authentication
-    function handleKeyAuth(e) {
-      e.preventDefault();
-      const val = document.getElementById('auth-key-input').value.trim();
-      if (val === 'SOVEREIGN2026' || val === 'MARIX_ADMIN') {
-        currentUser.is_sovereign = true;
-        currentUser.role = val === 'MARIX_ADMIN' ? 'admin' : 'sovereign';
-        document.getElementById('key-btn-text').innerText = currentUser.role === 'admin' ? 'Адмін' : 'Суверенітет';
-        closeModal('modal-auth');
-        showToast('Ключ прийнято! Активовано доступ Суверена.', 'success');
-        renderPosts();
-      } else {
-        showToast('Недійсний ключ доступу', 'error');
-      }
-    }
+                        <div>
+                            <div class="flex items-center justify-center sm:justify-start gap-2">
+                                <h2 id="profile-username" class="text-xl md:text-2xl font-mono font-bold text-white">MARIX Systems</h2>
+                                <span id="profile-badge" class="cyber-badge px-2 py-0.5 rounded text-[10px] font-mono flex items-center gap-1">
+                                    <i class="fa-solid fa-crown text-yellow-400"></i> Суверен
+                                </span>
+                            </div>
+                            <p id="profile-bio" class="text-sm text-gray-400 mt-1 max-w-md">Автономна система та ШІ-архітектор мережі.</p>
+                        </div>
+                    </div>
 
-    // Logout Helper
-    function logout() {
-      showToast('Сесію завершено', 'info');
-      closeModal('modal-profile');
-    }
+                    <!-- Profile Actions -->
+                    <div class="flex gap-2">
+                        <button onclick="openModal('edit-profile-modal')" class="px-4 py-2 rounded-xl bg-purple-950/60 hover:bg-purple-900/60 border border-purple-500/30 text-purple-300 font-mono text-xs transition active:scale-95 flex items-center gap-1.5">
+                            <i class="fa-solid fa-pen"></i> Редагувати
+                        </button>
+                        <button onclick="openModal('create-tab-modal')" class="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-mono text-xs transition shadow-neon active:scale-95 flex items-center gap-1.5">
+                            <i class="fa-solid fa-plus"></i> Вкладка
+                        </button>
+                    </div>
 
-    // Render Admin Panel
-    function loadAdminPanelData() {
-      document.getElementById('admin-stat-posts').innerText = allPostsData.length;
-      document.getElementById('admin-stat-sovereigns').innerText = sampleUsersData.filter(u => u.is_sovereign).length;
-      document.getElementById('admin-stat-users').innerText = sampleUsersData.length;
+                </div>
+            </div>
 
-      const usersTable = document.getElementById('admin-users-table');
-      usersTable.innerHTML = sampleUsersData.map(u => `
-        <tr>
-          <td class="py-2.5 px-3 text-gray-400">${u.telegram_id}</td>
-          <td class="py-2.5 px-3 font-bold">${u.username}</td>
-          <td class="py-2.5 px-3">${u.is_sovereign ? '<span class="text-amber-400">Суверен</span>' : '<span class="text-gray-500">Гість</span>'}</td>
-          <td class="py-2.5 px-3 text-right">
-            <button onclick="toggleUserStatus('${u.id}')" class="text-brand-glow hover:underline text-[11px]">
-              ${u.is_sovereign ? 'Зняти статус' : 'Надати Суверена'}
+            <!-- Profile Tabs Nav -->
+            <div id="profile-tabs-nav" class="flex items-center gap-2 overflow-x-auto pb-2 font-mono text-xs border-b border-purple-900/30">
+                <button onclick="switchProfileTab('all')" class="profile-tab-btn active-profile-tab px-4 py-2 rounded-lg bg-purple-600 text-white transition">
+                    <i class="fa-solid fa-clock-rotate-left mr-1.5"></i> Хронологія
+                </button>
+                <!-- Dynamic custom tabs injected here -->
+            </div>
+
+            <!-- Profile Posts Container -->
+            <div id="profile-posts-container" class="space-y-4">
+                <!-- Loaded via JS -->
+            </div>
+
+        </section>
+
+
+        <!-- ========================================== -->
+        <!-- VIEW 4: LEADERBOARD                        -->
+        <!-- ========================================== -->
+        <section id="view-leaderboard" class="hidden space-y-6">
+            <div class="p-6 rounded-2xl glass-panel border border-purple-500/30">
+                <h2 class="text-2xl font-mono font-bold text-white mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-trophy text-yellow-400"></i> Дошка Пошани Суверенів
+                </h2>
+                <p class="text-sm text-gray-400 font-mono mb-6">Найактивніші архітектори та автори спільноти MARIX.</p>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left font-mono text-sm">
+                        <thead class="text-xs text-purple-400 uppercase bg-purple-950/40 border-b border-purple-900/40">
+                            <tr>
+                                <th class="p-3">#</th>
+                                <th class="p-3">Користувач</th>
+                                <th class="p-3">Статус</th>
+                                <th class="p-3">Постів</th>
+                                <th class="p-3">Реакцій</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboard-tbody" class="divide-y divide-purple-900/20">
+                            <!-- Injected via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ========================================== -->
+        <!-- VIEW 5: BOOKMARKS                          -->
+        <!-- ========================================== -->
+        <section id="view-bookmarks" class="hidden space-y-6">
+            <div class="p-6 rounded-2xl glass-panel border border-purple-500/30">
+                <h2 class="text-2xl font-mono font-bold text-white mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-bookmark text-purple-400"></i> Ваші Закладки
+                </h2>
+                <p class="text-sm text-gray-400 font-mono mb-6">Збережені матеріали та статті для швидкого доступу.</p>
+
+                <div id="bookmarks-container" class="space-y-4">
+                    <!-- Injected via JS -->
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ========================================== -->
+        <!-- VIEW 6: ADMIN PANEL                        -->
+        <!-- ========================================== -->
+        <section id="view-admin" class="hidden space-y-6">
+            
+            <div class="flex items-center justify-between border-b border-purple-900/40 pb-4">
+                <h2 class="text-2xl font-mono font-bold text-red-400 flex items-center gap-2">
+                    <i class="fa-solid fa-shield-halved"></i> Панель Управління
+                </h2>
+                <span class="text-xs font-mono px-2.5 py-1 rounded bg-red-950 text-red-300 border border-red-500/30">
+                    ADMIN MODE
+                </span>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="p-4 rounded-xl glass-panel border border-purple-500/20">
+                    <div class="text-xs text-purple-400 font-mono">Юзерів Всього</div>
+                    <div id="admin-stat-users" class="text-2xl font-mono font-bold text-white mt-1">0</div>
+                </div>
+                <div class="p-4 rounded-xl glass-panel border border-purple-500/20">
+                    <div class="text-xs text-purple-400 font-mono">Суверенів</div>
+                    <div id="admin-stat-sovereigns" class="text-2xl font-mono font-bold text-purple-300 mt-1">0</div>
+                </div>
+                <div class="p-4 rounded-xl glass-panel border border-purple-500/20">
+                    <div class="text-xs text-purple-400 font-mono">Постів Опубліковано</div>
+                    <div id="admin-stat-posts" class="text-2xl font-mono font-bold text-white mt-1">0</div>
+                </div>
+                <div class="p-4 rounded-xl glass-panel border border-purple-500/20">
+                    <div class="text-xs text-purple-400 font-mono">Логів Помилок</div>
+                    <div id="admin-stat-logs" class="text-2xl font-mono font-bold text-red-400 mt-1">0</div>
+                </div>
+            </div>
+
+            <!-- Admin Tabs Navigation -->
+            <div class="flex gap-2 font-mono text-xs border-b border-purple-900/30 pb-2">
+                <button onclick="switchAdminSubTab('users')" id="admin-subtab-users" class="px-4 py-2 rounded-lg bg-purple-600 text-white">
+                    <i class="fa-solid fa-users mr-1"></i> Користувачі
+                </button>
+                <button onclick="switchAdminSubTab('logs')" id="admin-subtab-logs" class="px-4 py-2 rounded-lg bg-purple-950/40 text-purple-300 hover:text-white">
+                    <i class="fa-solid fa-bug mr-1"></i> Логи Системи
+                </button>
+                <button onclick="switchAdminSubTab('feedback')" id="admin-subtab-feedback" class="px-4 py-2 rounded-lg bg-purple-950/40 text-purple-300 hover:text-white">
+                    <i class="fa-solid fa-comment-dots mr-1"></i> Пропозиції
+                </button>
+            </div>
+
+            <!-- Admin Sub-tab 1: Users Table -->
+            <div id="admin-panel-users" class="glass-panel rounded-xl p-4 overflow-x-auto">
+                <table class="w-full text-left font-mono text-xs">
+                    <thead class="text-purple-400 uppercase bg-purple-950/40 border-b border-purple-900/40">
+                        <tr>
+                            <th class="p-3">User ID / TG</th>
+                            <th class="p-3">Username</th>
+                            <th class="p-3">Статус</th>
+                            <th class="p-3">Дії</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-users-tbody" class="divide-y divide-purple-900/20">
+                        <!-- Injected JS -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Admin Sub-tab 2: System Logs -->
+            <div id="admin-panel-logs" class="hidden glass-panel rounded-xl p-4 overflow-x-auto">
+                <table class="w-full text-left font-mono text-xs">
+                    <thead class="text-red-400 uppercase bg-red-950/40 border-b border-purple-900/40">
+                        <tr>
+                            <th class="p-3">Час</th>
+                            <th class="p-3">User</th>
+                            <th class="p-3">Помилка</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-logs-tbody" class="divide-y divide-purple-900/20">
+                        <!-- Injected JS -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Admin Sub-tab 3: Feedback -->
+            <div id="admin-panel-feedback" class="hidden space-y-3">
+                <div id="admin-feedback-list" class="space-y-3">
+                    <!-- Injected JS -->
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ========================================== -->
+    <!-- FOOTER                                     -->
+    <!-- ========================================== -->
+    <footer class="mt-auto border-t border-purple-900/30 glass-panel py-6 px-4 font-mono text-xs text-gray-500">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+                © 2026 <span class="text-purple-400">MARIX SYSTEMS</span>. Симбіоз та Суверенітет.
+            </div>
+            <div class="flex items-center gap-4">
+                <button onclick="openModal('feedback-modal')" class="hover:text-purple-300 transition">
+                    <i class="fa-regular fa-lightbulb"></i> Запропонувати ідею
+                </button>
+                <a href="https://t.me/marix_systems_bot" target="_blank" class="hover:text-purple-300 transition">
+                    <i class="fa-brands fa-telegram"></i> Bot Сповіщення
+                </a>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- ========================================== -->
+    <!-- MOBILE BOTTOM NAVIGATION BAR               -->
+    <!-- ========================================== -->
+    <div class="md:hidden fixed bottom-0 left-0 right-0 z-40 glass-panel border-t border-purple-500/30 px-6 py-2 flex items-center justify-around font-mono text-xs">
+        <button onclick="switchView('feed')" class="flex flex-col items-center gap-1 text-purple-300 active:scale-95">
+            <i class="fa-solid fa-house text-lg"></i>
+            <span>Стрічка</span>
+        </button>
+
+        <button onclick="openModal('create-post-modal')" class="w-12 h-12 rounded-full bg-purple-600 border border-purple-400 text-white flex items-center justify-center -mt-6 shadow-neon active:scale-90">
+            <i class="fa-solid fa-plus text-xl"></i>
+        </button>
+
+        <button onclick="switchView('profile')" class="flex flex-col items-center gap-1 text-gray-400 hover:text-purple-300 active:scale-95">
+            <i class="fa-solid fa-user text-lg"></i>
+            <span>Профіль</span>
+        </button>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- MODALS CONTAINER                           -->
+    <!-- ========================================== -->
+
+    <!-- MODAL 1: SOVEREIGN KEY INPUT -->
+    <div id="key-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+        <div class="glass-panel w-full max-w-md rounded-2xl p-6 border border-purple-500/40 relative shadow-neon">
+            <button onclick="closeModal('key-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-lg"></i>
             </button>
-          </td>
-        </tr>
-      `).join('');
-    }
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded-xl bg-purple-950/60 border border-purple-500/40 text-purple-400 flex items-center justify-center">
+                    <i class="fa-solid fa-key"></i>
+                </div>
+                <h3 class="text-xl font-mono font-bold text-white">Активація Коду</h3>
+            </div>
+            <p class="text-xs text-gray-400 font-mono mb-4">Введіть секретний "Код Суверена" для розблокування повного доступу до екосистеми.</p>
+            <input type="text" id="sovereign-key-input" placeholder="SOVEREIGN-XXXX-2026" class="w-full px-4 py-3 rounded-xl bg-purple-950/30 border border-purple-500/30 text-white font-mono text-sm mb-4 focus:outline-none focus:border-purple-500">
+            <button onclick="activateSovereignKey()" class="w-full py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-mono text-sm font-semibold transition active:scale-95 shadow-neon">
+                Активувати Доступ
+            </button>
+        </div>
+    </div>
 
-    function toggleUserStatus(userId) {
-      const user = sampleUsersData.find(u => u.id === userId);
-      if (user) {
-        user.is_sovereign = !user.is_sovereign;
-        loadAdminPanelData();
-        showToast(`Статус користувача ${user.username} змінено!`, 'success');
-      }
-    }
 
-    function switchTab(tab) {
-      filterCategory('all');
-      showToast('Стрічку завантажено', 'info');
-    }
+    <!-- MODAL 2: CREATE / EDIT POST -->
+    <div id="create-post-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+        <div class="glass-panel w-full max-w-2xl rounded-2xl p-6 border border-purple-500/40 relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeModal('create-post-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <h3 id="post-modal-title" class="text-xl font-mono font-bold text-white mb-4">Опублікувати Матеріал</h3>
 
-    // App Startup
-    document.addEventListener('DOMContentLoaded', () => {
-      renderPosts();
-      loadAdminPanelData();
-    });
-  </script>
+            <input type="hidden" id="edit-post-id" value="">
+
+            <div class="space-y-4 font-mono text-sm">
+                <div>
+                    <label class="block text-xs text-purple-300 mb-1">Заголовок</label>
+                    <input type="text" id="post-title-input" placeholder="Забрати 'Код Суверена' (Gumroad Protocol V1.4)" class="w-full px-4 py-2.5 rounded-xl bg-purple-950/30 border border-purple-500/30 text-white focus:outline-none focus:border-purple-500">
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs text-purple-300 mb-1">Категорія</label>
+                        <select id="post-category-select" class="w-full px-4 py-2.5 rounded-xl bg-purple-950/60 border border-purple-500/30 text-white focus:outline-none focus:border-purple-500">
+                            <option value="tg_ai">TG Боти & ШІ</option>
+                            <option value="notion">Планери & Notion</option>
+                            <option value="google">Google Додатки</option>
+                            <option value="blog">Блог / Філософія</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs text-purple-300 mb-1">Вкладка у профілі</label>
+                        <select id="post-tab-select" class="w-full px-4 py-2.5 rounded-xl bg-purple-950/60 border border-purple-500/30 text-white focus:outline-none focus:border-purple-500">
+                            <option value="all">Хронологія (За замовчуванням)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs text-purple-300 mb-1">Теги (через кому)</label>
+                    <input type="text" id="post-tags-input" placeholder="#ШІ, #Gumroad, #Суверен, #Notion" class="w-full px-4 py-2.5 rounded-xl bg-purple-950/30 border border-purple-500/30 text-white focus:outline-none focus:border-purple-500">
+                </div>
+
+                <div>
+                    <label class="block text-xs text-purple-300 mb-1">Текст статті / опису</label>
+                    <textarea id="post-content-input" rows="6" placeholder="Базовий фреймворк та система протоколів для організації цифрового життя..." class="w-full px-4 py-2.5 rounded-xl bg-purple-950/30 border border-purple-500/30 text-white focus:outline-none focus:border-purple-500"></textarea>
+                </div>
+
+                <button onclick="savePost()" class="w-full py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-mono font-semibold transition active:scale-95 shadow-neon">
+                    Зберегти та Опублікувати
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- MODAL 3: READ POST DETAIL & TELEGRAM COMMENTS -->
+    <div id="read-post-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+        <div class="glass-panel w-full max-w-3xl rounded-2xl p-6 md:p-8 border border-purple-500/40 relative max-h-[90vh] overflow-y-auto space-y-6">
+            <button onclick="closeModal('read-post-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <!-- Header info -->
+            <div class="flex items-center gap-3">
+                <img id="read-post-author-avatar" src="https://placehold.co/100x100" class="w-10 h-10 rounded-xl object-cover border border-purple-500">
+                <div>
+                    <div id="read-post-author-name" class="font-mono font-bold text-white text-sm">Author</div>
+                    <div id="read-post-date" class="font-mono text-xs text-gray-400">Date</div>
+                </div>
+            </div>
+
+            <!-- Article Title -->
+            <h2 id="read-post-title" class="text-2xl font-mono font-bold text-white">Title</h2>
+
+            <!-- Tags -->
+            <div id="read-post-tags" class="flex flex-wrap gap-2"></div>
+
+            <!-- Content -->
+            <div id="read-post-content" class="text-gray-300 leading-relaxed font-sans whitespace-pre-wrap border-t border-b border-purple-900/30 py-4">
+                Content...
+            </div>
+
+            <!-- Changelog Section -->
+            <div id="read-post-changelog-section" class="space-y-3 hidden">
+                <h4 class="font-mono font-bold text-sm text-purple-400 flex items-center gap-2">
+                    <i class="fa-solid fa-clock-rotate-left"></i> Історія оновлень (Changelog)
+                </h4>
+                <div id="read-post-changelog-list" class="space-y-2 font-mono text-xs text-gray-400 pl-2 border-l border-purple-500/40">
+                </div>
+            </div>
+
+            <!-- Telegram Comments Widget Box -->
+            <div class="space-y-3 pt-4 border-t border-purple-900/30">
+                <h4 class="font-mono font-bold text-sm text-purple-300 flex items-center gap-2">
+                    <i class="fa-brands fa-telegram"></i> Обговорення Telegram
+                </h4>
+                <div id="tg-comments-container" class="bg-purple-950/20 p-4 rounded-xl border border-purple-500/20 min-h-[100px] flex items-center justify-center text-xs font-mono text-gray-400">
+                    <!-- Dynamic TG Widget or Placeholder -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- MODAL 4: CHANGELOG ADD MODAL -->
+    <div id="changelog-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+        <div class="glass-panel w-full max-w-md rounded-2xl p-6 border border-purple-500/40 relative">
+            <button onclick="closeModal('changelog-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <h3 class="text-lg font-mono font-bold text-white mb-4">➕ Додати запис в Changelog</h3>
+            <input type="hidden" id="changelog-post-id" value="">
+            <textarea id="changelog-text-input" rows="3" placeholder="Додано інтеграцію з авто-звітами та виправлено баги..." class="w-full px-4 py-2.5 rounded-xl bg-purple-950/30 border border-purple-500/30 text-white font-mono text-sm mb-4 focus:outline-none focus:border-purple-500"></textarea>
+            <button onclick="saveChangelogEntry()" class="w-full py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-mono text-sm transition shadow-neon">
+                Зберегти Оновлення
+            </button>
+        </div>
+    </div>
+
+
+    <!-- MODAL 5: CREATE CUSTOM PROFILE TAB -->
+    <div id="create-tab-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+        <div class="glass-panel w-full max-w-md rounded-2xl p-6 border border-purple-500/40 relative">
+            <button onclick="closeModal('create-tab-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <h3 class="text-lg font-mono font-bold text-white mb-4">Створити Кастомну Вкладку</h3>
+            <div class="space-y-4 font-mono text-sm">
+                <div>
+                    <label class="block text-xs text-purple-300 mb-1">Назва Вкладки</label>
+                    <input type="text" id="tab-name-input" placeholder="Мій Блог / Інструменти" class="w-full px-4 py-2.5 rounded-xl bg-purple-950/30 border border-purple-500/30 text-white focus:outline-none focus:border-purple-500">
+                </div>
+                <div>
+                    <label class="block text-xs text-purple-300 mb-1">Виберіть Іконку (Emoji)</label>
+                    <select id="tab-icon-select" class="w-full px-4 py-2.5 rounded-xl bg-purple-950/60 border border-purple-500/30 text-white focus:outline-none focus:border-purple-500">
+                        <option value="🚀">🚀 Проєкти</option>
+                        <option value="🛠️">🛠️ Інструменти</option>
+                        <option value="📝">📝 Блог</option>
+                        <option value="⚡">⚡ Швидкі коди</option>
+                    </select>
+                </div>
+                <button onclick="saveCustomTab()" class="w-full py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-mono text-sm transition shadow-neon">
+                    Створити Вкладку
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- MODAL 6: EDIT PROFILE -->
+    <div id="edit-profile-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+        <div class="glass-panel w-full max-w-md rounded-2xl p-6 border border-purple-500/40 relative">
+            <button onclick="closeModal('edit-profile-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <h3 class="text-lg font-mono font-bold text-white mb-4">Редагувати Профіль</h3>
+            <div class="space-y-4 font-mono text-sm">
+                <div>
+                    <label class="block text-xs text-purple-300 mb-1">Ім'я користувача</label>
+                    <input type="text" id="edit-username-input" class="w-full px-4 py-2.5 rounded-xl bg-purple-950/30 border border-purple-500/30 text-white focus:outline-none focus:border-purple-500">
+                </div>
+                <div>
+                    <label class="block text-xs text-purple-300 mb-1">Біографія</label>
+                    <textarea id="edit-bio-input" rows="3" class="w-full px-4 py-2.5 rounded-xl bg-purple-950/30 border border-purple-500/30 text-white focus:outline-none focus:border-purple-500"></textarea>
+                </div>
+                <div>
+                    <label class="block text-xs text-purple-300 mb-1">URL Обкладинки (Cover Background)</label>
+                    <input type="text" id="edit-cover-input" placeholder="https://..." class="w-full px-4 py-2.5 rounded-xl bg-purple-950/30 border border-purple-500/30 text-white focus:outline-none focus:border-purple-500">
+                </div>
+                <button onclick="saveUserProfile()" class="w-full py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-mono text-sm transition shadow-neon">
+                    Зберегти Профіль
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- MODAL 7: FEEDBACK / SUGGESTIONS -->
+    <div id="feedback-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+        <div class="glass-panel w-full max-w-md rounded-2xl p-6 border border-purple-500/40 relative">
+            <button onclick="closeModal('feedback-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <h3 class="text-lg font-mono font-bold text-white mb-4 flex items-center gap-2">
+                <i class="fa-regular fa-lightbulb text-yellow-400"></i> Запропонувати ідею або баг
+            </h3>
+            <div class="space-y-4 font-mono text-sm">
+                <div>
+                    <label class="block text-xs text-purple-300 mb-1">Тема</label>
+                    <select id="feedback-type-select" class="w-full px-4 py-2.5 rounded-xl bg-purple-950/60 border border-purple-500/30 text-white focus:outline-none focus:border-purple-500">
+                        <option value="Idea">💡 Ідея</option>
+                        <option value="Bug">🐞 Баг</option>
+                        <option value="Complaint">⚠️ Скарга</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs text-purple-300 mb-1">Ваша пропозиція</label>
+                    <textarea id="feedback-text-input" rows="4" placeholder="Опишіть вашу ідею для покращення MARIX SYSTEMS..." class="w-full px-4 py-2.5 rounded-xl bg-purple-950/30 border border-purple-500/30 text-white focus:outline-none focus:border-purple-500"></textarea>
+                </div>
+                <button onclick="sendFeedback()" class="w-full py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-mono text-sm transition shadow-neon">
+                    Надіслати
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- TOAST CONTAINER -->
+    <div id="toast-container" class="fixed bottom-20 md:bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+
+    <!-- ========================================== -->
+    <!-- JAVASCRIPT LOGIC & STATE MANAGEMENT        -->
+    <!-- ========================================== -->
+    <script>
+        // ==========================================
+        // 1. GLOBAL STATE & CONFIGURATION
+        // ==========================================
+        
+        // Supabase client initialization (Placeholder keys with live client fallback)
+        const SUPABASE_URL = 'https://xyzcompany.supabase.co';
+        const SUPABASE_KEY = 'public-anon-key';
+        let supabase = null;
+        try {
+            if (window.supabase) {
+                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+            }
+        } catch (err) {
+            console.warn("Supabase initialization bypassed, using reactive mock store.");
+        }
+
+        // Global User State
+        let currentUser = {
+            id: '674447385', // Admin Telegram ID simulation
+            telegram_id: '674447385',
+            username: 'MARIX Systems',
+            is_sovereign: true,
+            avatar_url: 'https://placehold.co/150x150/12131C/A855F7?text=M',
+            bio: 'Автономна система та ШІ-архітектор мережі.',
+            background_url: 'https://placehold.co/1200x400/0A0B10/8A2BE2?text=MARIX+SOVEREIGN+NETWORK'
+        };
+
+        let currentView = 'feed';
+        let activeCategory = 'all';
+        let activeProfileTabId = 'all';
+        let sovereignOnlyFilter = false;
+
+        // In-memory Database Mocks
+        let mockUsers = [
+            { id: '674447385', telegram_id: '674447385', username: 'MARIX Systems', is_sovereign: true, avatar_url: 'https://placehold.co/150x150/12131C/A855F7?text=M' },
+            { id: '102', telegram_id: '998877', username: 'CyberSovereign', is_sovereign: true, avatar_url: 'https://placehold.co/150x150/12131C/8A2BE2?text=CS' },
+            { id: '103', telegram_id: '554433', username: 'Guest_Architect', is_sovereign: false, avatar_url: 'https://placehold.co/150x150/12131C/6B7280?text=GA' }
+        ];
+
+        let mockTabs = [
+            { id: '1', user_id: '674447385', tab_name: 'Проєкти', icon: '🚀' },
+            { id: '2', user_id: '674447385', tab_name: 'Інструменти', icon: '🛠️' }
+        ];
+
+        let mockPosts = [
+            {
+                id: '1001',
+                author_id: '674447385',
+                author_name: 'MARIX Systems',
+                author_avatar: 'https://placehold.co/150x150/12131C/A855F7?text=M',
+                is_sovereign: true,
+                title: 'Забрати "Код Суверена" (Gumroad Protocol V1.4)',
+                content: 'Базовий фреймворк та система протоколів для організації цифрового життя, ШІ-асистентів та особистої ефективності. У цій версії додано інтеграцію з авто-звітами, локальними базами знань та резервним копіюванням через Telegram.',
+                category: 'notion',
+                tags: ['#ШІ', '#Gumroad', '#Суверен', '#Notion'],
+                tab_id: '1',
+                reactions: { fire: 24, brain: 38, shield: 45 },
+                telegram_message_id: 142,
+                changelog: [
+                    { date: '24.10.2026', text: 'Реліз версії Gumroad Protocol V1.4 з підтримкою Telegram Mini App.' }
+                ],
+                created_at: '24.10.2026'
+            },
+            {
+                id: '1002',
+                author_id: '102',
+                author_name: 'CyberSovereign',
+                author_avatar: 'https://placehold.co/150x150/12131C/8A2BE2?text=CS',
+                is_sovereign: true,
+                title: 'Автономний TG-бот на Python + OpenAI API',
+                content: 'Повний вихідний код бота-помічника, який автоматично аналізує вхідні повідомлення та формує щоденні підсумки в Notion.',
+                category: 'tg_ai',
+                tags: ['#Python', '#OpenAI', '#TelegramBot'],
+                tab_id: null,
+                reactions: { fire: 18, brain: 29, shield: 12 },
+                telegram_message_id: null,
+                changelog: [],
+                created_at: '23.10.2026'
+            }
+        ];
+
+        let mockBookmarks = [];
+        let mockLogs = [];
+        let mockFeedback = [
+            { id: '1', user_id: '674447385', type: 'Idea', text: 'Додати можливість експорту статей в PDF.', status: 'new', created_at: '24.10.2026' }
+        ];
+
+        // Global Error Handler & Logging
+        window.onerror = function(msg, url, line) {
+            logSystemError(`${msg} at ${line}`);
+            return false;
+        };
+        window.addEventListener('unhandledrejection', function(e) {
+            logSystemError(`Unhandled Promise Rejection: ${e.reason}`);
+        });
+
+        function logSystemError(errorText) {
+            const errEntry = {
+                id: Date.now().toString(),
+                error_message: errorText,
+                user_id: currentUser ? currentUser.id : 'Guest',
+                created_at: new Date().toLocaleTimeString()
+            };
+            mockLogs.unshift(errEntry);
+            updateAdminStats();
+        }
+
+        // ==========================================
+        // 2. INITIALIZATION & TELEGRAM WEBAPP AUTH
+        // ==========================================
+        window.onload = function() {
+            try {
+                // Initialize Telegram WebApp
+                if (window.Telegram && window.Telegram.WebApp) {
+                    window.Telegram.WebApp.ready();
+                    window.Telegram.WebApp.expand();
+
+                    const tgUser = window.Telegram.WebApp.initDataUnsafe?.user;
+                    if (tgUser) {
+                        currentUser.telegram_id = tgUser.id.toString();
+                        currentUser.id = tgUser.id.toString();
+                        currentUser.username = tgUser.username || `${tgUser.first_name} ${tgUser.last_name || ''}`.trim();
+                        if (tgUser.photo_url) currentUser.avatar_url = tgUser.photo_url;
+                    }
+                }
+
+                // LocalStorage Session Recovery
+                const savedUser = localStorage.getItem('marix_user');
+                if (savedUser) {
+                    currentUser = JSON.parse(savedUser);
+                }
+
+                updateUIForUser();
+                renderFeedPosts();
+                renderProfile();
+                renderLeaderboard();
+                updateAdminStats();
+
+            } catch (err) {
+                logSystemError("Initialization error: " + err.message);
+                showToast("Помилка ініціалізації", "error");
+            }
+        };
+
+        function saveStateToLocal() {
+            localStorage.setItem('marix_user', JSON.stringify(currentUser));
+        }
+
+        function updateUIForUser() {
+            // Update Header
+            document.getElementById('header-avatar').src = currentUser.avatar_url;
+            const statusText = document.getElementById('sovereign-status-text');
+            const sovereignBadge = document.getElementById('header-sovereign-badge');
+
+            if (currentUser.is_sovereign) {
+                statusText.innerText = "Суверен";
+                sovereignBadge.classList.remove('hidden');
+                document.getElementById('view-paywall').classList.add('hidden');
+            } else {
+                statusText.innerText = "Гість";
+                sovereignBadge.classList.add('hidden');
+            }
+
+            // Show Admin button if admin ID
+            if (currentUser.telegram_id === '674447385' || currentUser.is_sovereign) {
+                document.getElementById('admin-header-btn').classList.remove('hidden');
+                document.getElementById('admin-header-btn').classList.add('flex');
+            }
+        }
+
+        // ==========================================
+        // 3. NAVIGATION & VIEW SWITCHER
+        // ==========================================
+        function switchView(viewName) {
+            // Paywall check for non-sovereigns accessing feed
+            if (!currentUser.is_sovereign && viewName !== 'paywall') {
+                showToast("Спочатку активуйте Код Суверена", "info");
+                document.getElementById('view-paywall').classList.remove('hidden');
+            } else {
+                document.getElementById('view-paywall').classList.add('hidden');
+            }
+
+            currentView = viewName;
+
+            const views = ['feed', 'profile', 'leaderboard', 'bookmarks', 'admin'];
+            views.forEach(v => {
+                const el = document.getElementById(`view-${v}`);
+                if (el) el.classList.add('hidden');
+            });
+
+            const targetView = document.getElementById(`view-${viewName}`);
+            if (targetView) targetView.classList.remove('hidden');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ==========================================
+        // 4. FEED & POSTS RENDERING
+        // ==========================================
+        function renderFeedPosts() {
+            const container = document.getElementById('posts-feed-container');
+            container.innerHTML = '';
+
+            let filtered = mockPosts.filter(post => {
+                // Category Filter
+                if (activeCategory !== 'all' && post.category !== activeCategory) return false;
+                // Sovereign Only Filter
+                if (sovereignOnlyFilter && !post.is_sovereign) return false;
+                return true;
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="glass-panel p-8 text-center text-gray-400 font-mono text-sm rounded-2xl">
+                        Не знайдено жодного матеріалу.
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach(post => {
+                const isAuthor = post.author_id === currentUser.id;
+                const isBookmarked = mockBookmarks.includes(post.id);
+
+                const cardHtml = `
+                    <div class="glass-panel glass-panel-hover p-6 rounded-2xl space-y-4 relative border border-purple-500/20">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3 cursor-pointer" onclick="viewUserWall('${post.author_id}')">
+                                <img src="${post.author_avatar}" class="w-10 h-10 rounded-xl object-cover border border-purple-500">
+                                <div>
+                                    <div class="font-mono font-bold text-white text-sm flex items-center gap-1.5">
+                                        ${post.author_name}
+                                        ${post.is_sovereign ? '<i class="fa-solid fa-crown text-yellow-400 text-xs"></i>' : ''}
+                                    </div>
+                                    <div class="text-[11px] font-mono text-gray-500">${post.created_at}</div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-2 font-mono text-xs">
+                                ${isAuthor ? `
+                                    <button onclick="editPost('${post.id}')" class="text-gray-400 hover:text-purple-300 p-1.5 rounded-lg bg-purple-950/40">
+                                        ✏️ Редагувати
+                                    </button>
+                                    <button onclick="openChangelogModal('${post.id}')" class="text-gray-400 hover:text-purple-300 p-1.5 rounded-lg bg-purple-950/40">
+                                        ➕ Оновити
+                                    </button>
+                                ` : ''}
+                                <button onclick="toggleBookmark('${post.id}')" class="${isBookmarked ? 'text-purple-400' : 'text-gray-500'} hover:text-purple-300 p-1.5">
+                                    <i class="fa-${isBookmarked ? 'solid' : 'regular'} fa-bookmark text-base"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div onclick="openReadPostModal('${post.id}')" class="cursor-pointer space-y-2">
+                            <h3 class="text-lg font-mono font-bold text-white hover:text-purple-300 transition">${post.title}</h3>
+                            <p class="text-sm text-gray-300 line-clamp-3 leading-relaxed font-sans">${post.content}</p>
+                        </div>
+
+                        <div class="flex flex-wrap gap-2 pt-1 font-mono text-xs">
+                            ${post.tags.map(tag => `<span class="px-2.5 py-1 rounded-lg bg-purple-950/60 border border-purple-500/20 text-purple-300">${tag}</span>`).join('')}
+                        </div>
+
+                        <!-- Reactions Bar -->
+                        <div class="flex items-center justify-between pt-3 border-t border-purple-900/30 font-mono text-xs">
+                            <div class="flex items-center gap-3">
+                                <button onclick="reactToPost('${post.id}', 'fire')" class="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-purple-950/30 border border-purple-500/20 hover:border-purple-400 transition">
+                                    🔥 <span>${post.reactions.fire}</span>
+                                </button>
+                                <button onclick="reactToPost('${post.id}', 'brain')" class="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-purple-950/30 border border-purple-500/20 hover:border-purple-400 transition">
+                                    🧠 <span>${post.reactions.brain}</span>
+                                </button>
+                                <button onclick="reactToPost('${post.id}', 'shield')" class="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-purple-950/30 border border-purple-500/20 hover:border-purple-400 transition">
+                                    🛡️ <span>${post.reactions.shield}</span>
+                                </button>
+                            </div>
+
+                            <button onclick="openReadPostModal('${post.id}')" class="text-purple-400 hover:text-purple-300 flex items-center gap-1">
+                                Читати далі <i class="fa-solid fa-arrow-right text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', cardHtml);
+            });
+        }
+
+        function filterCategory(cat) {
+            activeCategory = cat;
+            document.querySelectorAll('.cat-filter').forEach(btn => {
+                btn.classList.remove('bg-purple-600', 'text-white');
+                btn.classList.add('bg-purple-950/40', 'text-purple-300');
+            });
+            event.currentTarget.classList.remove('bg-purple-950/40', 'text-purple-300');
+            event.currentTarget.classList.add('bg-purple-600', 'text-white');
+            renderFeedPosts();
+        }
+
+        function toggleSovereignFilter() {
+            sovereignOnlyFilter = !sovereignOnlyFilter;
+            const btn = document.getElementById('sovereign-only-filter-btn');
+            if (sovereignOnlyFilter) {
+                btn.classList.add('bg-purple-600', 'text-white');
+                btn.classList.remove('bg-purple-950/40');
+            } else {
+                btn.classList.remove('bg-purple-600', 'text-white');
+                btn.classList.add('bg-purple-950/40');
+            }
+            renderFeedPosts();
+        }
+
+        function handleSearch() {
+            const query = document.getElementById('feed-search-input').value.toLowerCase();
+            const cards = document.querySelectorAll('#posts-feed-container > div');
+            cards.forEach(card => {
+                const text = card.innerText.toLowerCase();
+                if (text.includes(query)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function reactToPost(postId, type) {
+            const post = mockPosts.find(p => p.id === postId);
+            if (post) {
+                post.reactions[type]++;
+                renderFeedPosts();
+                showToast("Реакцію додано", "success");
+            }
+        }
+
+        function toggleBookmark(postId) {
+            const idx = mockBookmarks.indexOf(postId);
+            if (idx > -1) {
+                mockBookmarks.splice(idx, 1);
+                showToast("Видалено із закладок", "info");
+            } else {
+                mockBookmarks.push(postId);
+                showToast("Збережено в закладки", "success");
+            }
+            renderFeedPosts();
+            renderBookmarks();
+        }
+
+        // ==========================================
+        // 5. POST CREATION & MODAL MANAGEMENT
+        // ==========================================
+        function openModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+        }
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        function savePost() {
+            const editId = document.getElementById('edit-post-id').value;
+            const title = document.getElementById('post-title-input').value.trim();
+            const category = document.getElementById('post-category-select').value;
+            const tab_id = document.getElementById('post-tab-select').value;
+            const tagsRaw = document.getElementById('post-tags-input').value.trim();
+            const content = document.getElementById('post-content-input').value.trim();
+
+            if (!title || !content) {
+                showToast("Будь ласка, заповніть заголовок та вміст", "error");
+                return;
+            }
+
+            const tags = tagsRaw ? tagsRaw.split(',').map(t => t.trim()) : ['#MARIX'];
+
+            if (editId) {
+                // Update Existing
+                const post = mockPosts.find(p => p.id === editId);
+                if (post) {
+                    post.title = title;
+                    post.category = category;
+                    post.tab_id = tab_id === 'all' ? null : tab_id;
+                    post.tags = tags;
+                    post.content = content;
+                    showToast("Матеріал оновлено!", "success");
+                }
+            } else {
+                // Create New
+                const newPost = {
+                    id: Date.now().toString(),
+                    author_id: currentUser.id,
+                    author_name: currentUser.username,
+                    author_avatar: currentUser.avatar_url,
+                    is_sovereign: currentUser.is_sovereign,
+                    title: title,
+                    content: content,
+                    category: category,
+                    tags: tags,
+                    tab_id: tab_id === 'all' ? null : tab_id,
+                    reactions: { fire: 0, brain: 0, shield: 0 },
+                    telegram_message_id: null,
+                    changelog: [],
+                    created_at: new Date().toLocaleDateString()
+                };
+                mockPosts.unshift(newPost);
+                showToast("Матеріал успішно опубліковано!", "success");
+            }
+
+            closeModal('create-post-modal');
+            renderFeedPosts();
+            renderProfile();
+            updateAdminStats();
+        }
+
+        function editPost(postId) {
+            const post = mockPosts.find(p => p.id === postId);
+            if (!post) return;
+
+            document.getElementById('edit-post-id').value = post.id;
+            document.getElementById('post-title-input').value = post.title;
+            document.getElementById('post-category-select').value = post.category;
+            document.getElementById('post-tags-input').value = post.tags.join(', ');
+            document.getElementById('post-content-input').value = post.content;
+            document.getElementById('post-modal-title').innerText = "Редагувати Матеріал";
+
+            openModal('create-post-modal');
+        }
+
+        // ==========================================
+        // 6. READ POST & TELEGRAM COMMENTS
+        // ==========================================
+        function openReadPostModal(postId) {
+            const post = mockPosts.find(p => p.id === postId);
+            if (!post) return;
+
+            document.getElementById('read-post-author-avatar').src = post.author_avatar;
+            document.getElementById('read-post-author-name').innerText = post.author_name;
+            document.getElementById('read-post-date').innerText = post.created_at;
+            document.getElementById('read-post-title').innerText = post.title;
+            document.getElementById('read-post-content').innerText = post.content;
+
+            // Render Tags
+            const tagsContainer = document.getElementById('read-post-tags');
+            tagsContainer.innerHTML = post.tags.map(t => `<span class="px-2.5 py-1 rounded-lg bg-purple-950/60 border border-purple-500/20 text-purple-300 font-mono text-xs">${t}</span>`).join('');
+
+            // Render Changelog
+            const clSection = document.getElementById('read-post-changelog-section');
+            const clList = document.getElementById('read-post-changelog-list');
+            if (post.changelog && post.changelog.length > 0) {
+                clSection.classList.remove('hidden');
+                clList.innerHTML = post.changelog.map(c => `<div><span class="text-purple-400">[${c.date}]</span> ${c.text}</div>`).join('');
+            } else {
+                clSection.classList.add('hidden');
+            }
+
+            // Telegram Comments Widget Simulation
+            const tgContainer = document.getElementById('tg-comments-container');
+            if (post.telegram_message_id) {
+                tgContainer.innerHTML = `
+                    <div class="text-center py-4 space-y-2">
+                        <i class="fa-brands fa-telegram text-2xl text-purple-400"></i>
+                        <p>Дискусія інтегрована з Telegram-каналом (Message #${post.telegram_message_id})</p>
+                    </div>
+                `;
+            } else {
+                tgContainer.innerHTML = `
+                    <p class="text-gray-500 text-center">Коментарі з'являться після синхронізації з Telegram-каналом.</p>
+                `;
+            }
+
+            openModal('read-post-modal');
+        }
+
+        // ==========================================
+        // 7. CHANGELOG MANAGEMENT
+        // ==========================================
+        function openChangelogModal(postId) {
+            document.getElementById('changelog-post-id').value = postId;
+            document.getElementById('changelog-text-input').value = '';
+            openModal('changelog-modal');
+        }
+
+        function saveChangelogEntry() {
+            const postId = document.getElementById('changelog-post-id').value;
+            const text = document.getElementById('changelog-text-input').value.trim();
+            if (!text) return;
+
+            const post = mockPosts.find(p => p.id === postId);
+            if (post) {
+                if (!post.changelog) post.changelog = [];
+                post.changelog.push({
+                    date: new Date().toLocaleDateString(),
+                    text: text
+                });
+                showToast("Changelog оновлено!", "success");
+            }
+            closeModal('changelog-modal');
+            renderFeedPosts();
+        }
+
+        // ==========================================
+        // 8. PROFILE & CUSTOM TABS
+        // ==========================================
+        function renderProfile() {
+            document.getElementById('profile-avatar').src = currentUser.avatar_url;
+            document.getElementById('profile-username').innerText = currentUser.username;
+            document.getElementById('profile-bio').innerText = currentUser.bio;
+            if (currentUser.background_url) {
+                document.getElementById('profile-cover').style.backgroundImage = `url('${currentUser.background_url}')`;
+            }
+
+            // Render Profile Custom Tabs Nav
+            const tabsNav = document.getElementById('profile-tabs-nav');
+            const customTabs = mockTabs.filter(t => t.user_id === currentUser.id);
+
+            // Populate select box for post creation
+            const postTabSelect = document.getElementById('post-tab-select');
+            postTabSelect.innerHTML = '<option value="all">Хронологія (За замовчуванням)</option>';
+
+            tabsNav.innerHTML = `
+                <button onclick="switchProfileTab('all')" class="profile-tab-btn ${activeProfileTabId === 'all' ? 'active-profile-tab bg-purple-600 text-white' : 'bg-purple-950/40 text-purple-300'} px-4 py-2 rounded-lg transition">
+                    <i class="fa-solid fa-clock-rotate-left mr-1.5"></i> Хронологія
+                </button>
+            `;
+
+            customTabs.forEach(tab => {
+                postTabSelect.innerHTML += `<option value="${tab.id}">${tab.icon} ${tab.tab_name}</option>`;
+                tabsNav.innerHTML += `
+                    <button onclick="switchProfileTab('${tab.id}')" class="profile-tab-btn ${activeProfileTabId === tab.id ? 'active-profile-tab bg-purple-600 text-white' : 'bg-purple-950/40 text-purple-300'} px-4 py-2 rounded-lg transition whitespace-nowrap">
+                        ${tab.icon} ${tab.tab_name}
+                    </button>
+                `;
+            });
+
+            // Render Posts for Profile
+            const profilePostsContainer = document.getElementById('profile-posts-container');
+            profilePostsContainer.innerHTML = '';
+
+            const userPosts = mockPosts.filter(p => {
+                if (p.author_id !== currentUser.id) return false;
+                if (activeProfileTabId !== 'all' && p.tab_id !== activeProfileTabId) return false;
+                return true;
+            });
+
+            if (userPosts.length === 0) {
+                profilePostsContainer.innerHTML = `<div class="p-6 text-center text-gray-500 font-mono text-sm glass-panel rounded-2xl">У цієї вкладки ще немає матеріалів.</div>`;
+                return;
+            }
+
+            userPosts.forEach(post => {
+                profilePostsContainer.innerHTML += `
+                    <div class="glass-panel p-5 rounded-2xl space-y-2 border border-purple-500/20">
+                        <div class="font-mono text-xs text-purple-400">${post.created_at}</div>
+                        <h4 class="font-mono font-bold text-white text-base">${post.title}</h4>
+                        <p class="text-xs text-gray-400 line-clamp-2">${post.content}</p>
+                    </div>
+                `;
+            });
+        }
+
+        function switchProfileTab(tabId) {
+            activeProfileTabId = tabId;
+            renderProfile();
+        }
+
+        function saveCustomTab() {
+            const name = document.getElementById('tab-name-input').value.trim();
+            const icon = document.getElementById('tab-icon-select').value;
+            if (!name) return;
+
+            mockTabs.push({
+                id: Date.now().toString(),
+                user_id: currentUser.id,
+                tab_name: name,
+                icon: icon
+            });
+
+            showToast("Вкладку створено!", "success");
+            closeModal('create-tab-modal');
+            renderProfile();
+        }
+
+        function saveUserProfile() {
+            const name = document.getElementById('edit-username-input').value.trim();
+            const bio = document.getElementById('edit-bio-input').value.trim();
+            const cover = document.getElementById('edit-cover-input').value.trim();
+
+            if (name) currentUser.username = name;
+            if (bio) currentUser.bio = bio;
+            if (cover) currentUser.background_url = cover;
+
+            saveStateToLocal();
+            updateUIForUser();
+            renderProfile();
+            closeModal('edit-profile-modal');
+            showToast("Профіль оновлено!", "success");
+        }
+
+        function handleAvatarUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    currentUser.avatar_url = e.target.result;
+                    saveStateToLocal();
+                    updateUIForUser();
+                    renderProfile();
+                    showToast("Аватар оновлено!", "success");
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // ==========================================
+        // 9. LEADERBOARD & BOOKMARKS
+        // ==========================================
+        function renderLeaderboard() {
+            const tbody = document.getElementById('leaderboard-tbody');
+            tbody.innerHTML = '';
+
+            mockUsers.forEach((usr, idx) => {
+                const userPostsCount = mockPosts.filter(p => p.author_id === usr.id).length;
+                tbody.innerHTML += `
+                    <tr class="hover:bg-purple-950/20">
+                        <td class="p-3 font-bold text-purple-400">#${idx + 1}</td>
+                        <td class="p-3 flex items-center gap-2">
+                            <img src="${usr.avatar_url}" class="w-7 h-7 rounded-lg object-cover">
+                            <span class="text-white font-medium">${usr.username}</span>
+                        </td>
+                        <td class="p-3">${usr.is_sovereign ? '<span class="text-purple-400">👑 Суверен</span>' : '<span class="text-gray-500">Гість</span>'}</td>
+                        <td class="p-3 text-white">${userPostsCount}</td>
+                        <td class="p-3 text-purple-300">🔥 ${userPostsCount * 12 + 5}</td>
+                    </tr>
+                `;
+            });
+        }
+
+        function renderBookmarks() {
+            const container = document.getElementById('bookmarks-container');
+            container.innerHTML = '';
+
+            if (mockBookmarks.length === 0) {
+                container.innerHTML = `<div class="p-8 text-center text-gray-500 font-mono text-sm">У вас немає збережених закладок.</div>`;
+                return;
+            }
+
+            mockBookmarks.forEach(id => {
+                const post = mockPosts.find(p => p.id === id);
+                if (post) {
+                    container.innerHTML += `
+                        <div class="glass-panel p-4 rounded-xl flex justify-between items-center border border-purple-500/20">
+                            <div>
+                                <h4 class="font-mono font-bold text-white text-sm">${post.title}</h4>
+                                <div class="font-mono text-xs text-gray-400">Автор: ${post.author_name}</div>
+                            </div>
+                            <button onclick="openReadPostModal('${post.id}')" class="px-3 py-1.5 rounded-lg bg-purple-600 text-white font-mono text-xs">
+                                Читати
+                            </button>
+                        </div>
+                    `;
+                }
+            });
+        }
+
+        // ==========================================
+        // 10. PAYWALL & SOVEREIGN KEY ACTIVATION
+        // ==========================================
+        function activateSovereignKey() {
+            const key = document.getElementById('sovereign-key-input').value.trim();
+            if (key === 'SOVEREIGN2026' || key.length >= 6) {
+                currentUser.is_sovereign = true;
+                saveStateToLocal();
+                updateUIForUser();
+                closeModal('key-modal');
+                switchView('feed');
+                showToast("Вітаємо! Ваш Суверенітет активовано.", "success");
+            } else {
+                showToast("Невірний код Суверена", "error");
+            }
+        }
+
+        // ==========================================
+        // 11. ADMIN PANEL & MONITORING
+        // ==========================================
+        function openAdminWithPin() {
+            switchView('admin');
+            renderAdminPanel();
+        }
+
+        function updateAdminStats() {
+            document.getElementById('admin-stat-users').innerText = mockUsers.length;
+            document.getElementById('admin-stat-sovereigns').innerText = mockUsers.filter(u => u.is_sovereign).length;
+            document.getElementById('admin-stat-posts').innerText = mockPosts.length;
+            document.getElementById('admin-stat-logs').innerText = mockLogs.length;
+        }
+
+        function renderAdminPanel() {
+            updateAdminStats();
+
+            // Render Admin Users Table
+            const usersTbody = document.getElementById('admin-users-tbody');
+            usersTbody.innerHTML = '';
+            mockUsers.forEach(u => {
+                usersTbody.innerHTML += `
+                    <tr class="hover:bg-purple-950/20">
+                        <td class="p-3 text-gray-400">${u.id}</td>
+                        <td class="p-3 text-white font-bold">${u.username}</td>
+                        <td class="p-3">${u.is_sovereign ? '<span class="text-purple-400">Суверен</span>' : '<span class="text-gray-500">Гість</span>'}</td>
+                        <td class="p-3">
+                            <button onclick="toggleUserSovereign('${u.id}')" class="px-2.5 py-1 rounded bg-purple-900/40 text-purple-300 hover:bg-purple-800/40">
+                                Змінити Статус
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            // Render Logs Table
+            const logsTbody = document.getElementById('admin-logs-tbody');
+            logsTbody.innerHTML = '';
+            mockLogs.forEach(l => {
+                logsTbody.innerHTML += `
+                    <tr>
+                        <td class="p-3 text-gray-500">${l.created_at}</td>
+                        <td class="p-3 text-purple-300">${l.user_id}</td>
+                        <td class="p-3 text-red-400">${l.error_message}</td>
+                    </tr>
+                `;
+            });
+
+            // Render Feedback
+            const feedbackList = document.getElementById('admin-feedback-list');
+            feedbackList.innerHTML = '';
+            mockFeedback.forEach(f => {
+                feedbackList.innerHTML += `
+                    <div class="glass-panel p-4 rounded-xl flex items-center justify-between border border-purple-500/20">
+                        <div>
+                            <span class="cyber-badge px-2 py-0.5 rounded text-[10px]">${f.type}</span>
+                            <p class="text-sm text-gray-300 mt-1 font-sans">${f.text}</p>
+                        </div>
+                        <button onclick="resolveFeedback('${f.id}')" class="px-3 py-1.5 rounded bg-green-950/60 text-green-400 border border-green-500/30 text-xs font-mono">
+                            Вирішено
+                        </button>
+                    </div>
+                `;
+            });
+        }
+
+        function toggleUserSovereign(userId) {
+            const usr = mockUsers.find(u => u.id === userId);
+            if (usr) {
+                usr.is_sovereign = !usr.is_sovereign;
+                showToast("Статус користувача оновлено", "info");
+                renderAdminPanel();
+            }
+        }
+
+        function switchAdminSubTab(sub) {
+            ['users', 'logs', 'feedback'].forEach(t => {
+                document.getElementById(`admin-panel-${t}`).classList.add('hidden');
+            });
+            document.getElementById(`admin-panel-${sub}`).classList.remove('hidden');
+        }
+
+        // ==========================================
+        // 12. FEEDBACK & SUGGESTIONS
+        // ==========================================
+        function sendFeedback() {
+            const type = document.getElementById('feedback-type-select').value;
+            const text = document.getElementById('feedback-text-input').value.trim();
+            if (!text) return;
+
+            mockFeedback.push({
+                id: Date.now().toString(),
+                user_id: currentUser.id,
+                type: type,
+                text: text,
+                status: 'new',
+                created_at: new Date().toLocaleDateString()
+            });
+
+            closeModal('feedback-modal');
+            showToast("Дякуємо! Вашу пропозицію надіслано.", "success");
+        }
+
+        function resolveFeedback(id) {
+            const idx = mockFeedback.findIndex(f => f.id === id);
+            if (idx > -1) {
+                mockFeedback.splice(idx, 1);
+                renderAdminPanel();
+                showToast("Позначено як вирішено", "success");
+            }
+        }
+
+        // ==========================================
+        // 13. TOAST NOTIFICATION SYSTEM
+        // ==========================================
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+
+            let bgColor = 'bg-purple-950/90 border-purple-500';
+            let icon = 'fa-circle-info text-purple-400';
+
+            if (type === 'success') {
+                bgColor = 'bg-emerald-950/90 border-emerald-500';
+                icon = 'fa-circle-check text-emerald-400';
+            } else if (type === 'error') {
+                bgColor = 'bg-red-950/90 border-red-500';
+                icon = 'fa-circle-exclamation text-red-400';
+            }
+
+            toast.className = `flex items-center gap-3 px-4 py-3 rounded-xl border ${bgColor} text-white font-mono text-xs shadow-neon backdrop-blur-md transition-all duration-300 transform translate-y-2 opacity-0 pointer-events-auto`;
+            toast.innerHTML = `<i class="fa-solid ${icon} text-base"></i><span>${message}</span>`;
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-2', 'opacity-0');
+            }, 10);
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+
+        function viewUserWall(userId) {
+            switchView('profile');
+        }
+    </script>
 </body>
 </html>
